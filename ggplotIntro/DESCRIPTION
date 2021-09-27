@@ -1,13 +1,13 @@
 Package: ggplotIntro
-Title: What the Package Does (One Line, Title Case)
+Title: A shiny App for ggplot New Learner
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Yuheng",
+           family = "Cui",
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Contains data and a shiny app for ggplot new learner.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
