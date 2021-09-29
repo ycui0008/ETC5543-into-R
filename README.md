@@ -3,7 +3,11 @@
 
 # This repo is created for ETC5543 (Business analytics creative activity - S2 2021)
 
-# Deadline is at 2021-11-07
+# Important dates 
+
+* The report is due **2021-11-05**.
+* The presentatin is on **2021-11-12**.
+
 
 # Assessment
 
