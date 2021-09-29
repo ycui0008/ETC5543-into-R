@@ -39,7 +39,7 @@ devtools::install_github("ycui0008/ETC5543-intro-R")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(ggplotIntro)
+# library(ggplotIntro)
 ## basic example code
 ```
 
