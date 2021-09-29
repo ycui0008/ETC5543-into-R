@@ -1,7 +1,4 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# This repo is created for ETC5543 (Business analytics creative activity - S2 2021)
+# ETC5543 (Business analytics creative activity - S2 2021)
 
 # Important dates 
 
