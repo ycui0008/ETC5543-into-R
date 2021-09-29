@@ -7,28 +7,41 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
+library(shiny) # Import
+library(datasets) # Import
+library(readr) # Import
+library(ggplot2) # Import
+library(magrittr) # Import
+
+url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
+
+who_covid <- read_csv(url) %>%
+    janitor::clean_names() %>%
+    dplyr::select(
+        name,
+        who_region,
+        cases_cumulative_total,
+        cases_cumulative_total_per_100000_population,
+        deaths_cumulative_total,
+        deaths_cumulative_total_per_100000_population
+    )
+
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Application Title"),
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
+    navlistPanel(
+        "Header A",
+        tabPanel("Component 1"),
+        tabPanel("Component 2"),
+        "Header B",
+        tabPanel("Component 3"),
+        tabPanel("Component 4"),
+        "-----",
+        tabPanel("Component 5")
     )
 )
 
@@ -45,5 +58,5 @@ server <- function(input, output) {
     })
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)
