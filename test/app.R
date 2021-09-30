@@ -31,13 +31,24 @@ who_covid <- read_csv(url) %>%
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
-    titlePanel("Application Title"),
+    titlePanel("ggplotIntro"),
 
     navlistPanel(
-        "Header A",
-        tabPanel("Component 1"),
-        tabPanel("Component 2"),
-        "Header B",
+        "Let's start",
+        tabPanel("Step 1: Understand your data",
+                 "A data set has its own characteristics: observations (rows), variables (columns), variables types, and missing values.",
+                 br(),
+                 "For a data set built in a package, it has description about its data source and variables.",
+                 div(HTML("Try to type <em>`?mtcars`</em> in the console")),
+                 p("In your", em("help"),"panel will show the same thing as the screenshot below"),
+                 img(src = 'mtcars.PNG', align = "left"),
+                 br(),
+                 "This step is important before drawing any plots, because different types of plots are suitable for different types of variable.",
+                 ),
+        tabPanel("Example",
+                 p("You can click the link below to check all types of", em("ggplot2"), "layers"),
+                 uiOutput("reference")),
+        "",
         tabPanel("Component 3"),
         tabPanel("Component 4"),
         "-----",
@@ -48,13 +59,13 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    url <- a("Click here", href="https://ggplot2.tidyverse.org/reference/index.html")
+    output$reference <- renderUI({
+        tagList(url)
+    })
 
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    output$distPlot <- renderPlot({
+
     })
 }
 
