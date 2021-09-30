@@ -12,6 +12,7 @@ library(datasets) # Import
 library(readr) # Import
 library(ggplot2) # Import
 library(magrittr) # Import
+library(shinyjs)
 
 url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 
@@ -70,6 +71,8 @@ ui <- fluidPage(
                  verbatimTextOutput("eg1"),
                  plotOutput("egPlot1"),
 
+
+
                  p("You can click the link below to check all types of", em("ggplot2"), "layers"),
                  uiOutput("reference")),
         "",
@@ -90,27 +93,25 @@ server <- function(input, output) {
     })
 
     # mtcars example text part
-    x_variable <- reactive({input$mtcars_x})
-
-    y_variable <- reactive({input$mtcars_x})
-
-
-
-
 
     output$eg1 <- renderPrint({
         cat("mtcars %>%",
-            "ggplot(aes(x = ", x_variable(), ", y = ", y_variable(),")) +",
+            "ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y,")) +",
             input$mtcars_geom)
     })
 
 
     # mtcars example plot output
     output$egPlot1 <- renderPlot({
-        mtcars %>%
-            ggplot(aes(parse(x_variable), parse(y_variable()))) +
-            geom_point()
+        vx <- input$mtcars_x
+        vy <- input$mtcars_y
+
+        p1 <- ggplot(data = mtcars, aes(x = deparse(vx), y = deparse(vy)))
+
+        p1 + geom_point()
     })
+
+
 
 
 
