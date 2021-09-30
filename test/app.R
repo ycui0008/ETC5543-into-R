@@ -36,16 +36,39 @@ ui <- fluidPage(
     navlistPanel(
         "Let's start",
         tabPanel("Step 1: Understand your data",
-                 "A data set has its own characteristics: observations (rows), variables (columns), variables types, and missing values.",
+                 p("A data set has its own", strong("characteristics"),
+                   ": observations (rows), variables (columns), variables types, and missing values."),
                  br(),
                  "For a data set built in a package, it has description about its data source and variables.",
+                 h3("First,"),
                  div(HTML("Try to type <em>`?mtcars`</em> in the console")),
                  p("In your", em("help"),"panel will show the same thing as the screenshot below"),
+                 br(),
+                 br(),
                  img(src = 'mtcars.PNG', align = "left"),
                  br(),
-                 "This step is important before drawing any plots, because different types of plots are suitable for different types of variable.",
+                 br(),
+                 "This step is important before drawing any plots,
+                 because different types of plots are suitable for different types of variable.",
+                 h3("Second,"),
+                 p("Use", em("skimr::skim()"), "or", em("summary()"), "function to have a first look of your data."),
+                 img(src = 'summary mtcars.PNG', align = 'left'),
+                 br(),
+                 br(),
+                 h3("Let's start with an easy example")
                  ),
         tabPanel("Example",
+                 selectInput("mtcars_x", label= h5("Select X-axis variable:"),
+                              choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                              selected = "cyl"),
+                 selectInput("mtcars_y", label= h5("Select y-axis variable:"),
+                              choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                              selected = "hp"),
+                 radioButtons("mtcars_geom", label = h5("select the plot type"),
+                              choices = list("geom_point()", "geom_jitter()"),
+                              selected = "geom_point()"),
+                 verbatimTextOutput("eg1"),
+
                  p("You can click the link below to check all types of", em("ggplot2"), "layers"),
                  uiOutput("reference")),
         "",
@@ -59,14 +82,25 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
+    # ggplot layers link
     url <- a("Click here", href="https://ggplot2.tidyverse.org/reference/index.html")
     output$reference <- renderUI({
         tagList(url)
     })
 
-    output$distPlot <- renderPlot({
+    # mtcars example text part
 
+    output$eg1 <- renderPrint({
+        cat("mtcars %>%",
+            "ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y,")) +",
+            input$mtcars_geom)
     })
+
+    # mtcars example plot output
+
+
+
+
 }
 
 # Run the application
