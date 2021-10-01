@@ -58,6 +58,7 @@ ui <- fluidPage(
                  br(),
                  h3("Let's start with an easy example")
                  ),
+
         tabPanel("2: simple example",
                  h4("Play around with the variables:"),
                  varSelectInput("mtcars_x", label= h5("Select X-axis variable:"), mtcars,
@@ -79,14 +80,18 @@ ui <- fluidPage(
                  p(em("geom_point()")," is used to create scatterplots."),
                  p("You can click the link below to check all types of", em("ggplot2"), "layers"),
                  uiOutput("reference")),
-        "",
+
         tabPanel("3: simple exercises",
                  p("Now, let's do some simple exercises. We are going to use ", em("diamonds"), "data set."),
                  h4("Understand your data set."),
+                 textInput(),
                  useShinyjs(),
-                 actionButton("btn1", "hint"),
-                 textInput("hint1", "Use summary() or skimr::skim()")
-
+                 actionButton("btn1", "Hint"),
+                 hidden(
+                     div(id = "hint1",
+                         verbatimTextOutput("ht1")
+                         )
+                 )
 
                  ),
         tabPanel("Component 4"),
@@ -125,6 +130,11 @@ server <- function(input, output) {
     })
 
     # simple example section
+
+    observeEvent(input$btn1, {
+        toggle('hint1')
+        output$ht1 <- renderText({"Use summary() or skimr::skim()"})
+    })
 
 
 }
