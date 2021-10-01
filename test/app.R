@@ -36,7 +36,7 @@ ui <- fluidPage(
 
     navlistPanel(
         "Let's start",
-        tabPanel("Step 1: Understand your data",
+        tabPanel("1: Understand your data",
                  p("A data set has its own", strong("characteristics"),
                    ": observations (rows), variables (columns), variables types, and missing values."),
                  br(),
@@ -58,12 +58,13 @@ ui <- fluidPage(
                  br(),
                  h3("Let's start with an easy example")
                  ),
-        tabPanel("Example",
+        tabPanel("2: simple example",
+                 h4("Play around with the variables:"),
                  varSelectInput("mtcars_x", label= h5("Select X-axis variable:"), mtcars,
                               # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
                               selected = "cyl"
                               ),
-                 varSelectInput("mtcars_y", label= h5("Select y-axis variable:"), mtcars,
+                 varSelectInput("mtcars_y", label= h5("Select Y-axis variable:"), mtcars,
                               # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
                               selected = "hp"
                               ),
@@ -75,12 +76,19 @@ ui <- fluidPage(
                  p("Now, you can understand the basic algorithm of ", em("ggplot.")),
                  p("Within ", em("aes()"),
                    ", the x and y are standing for x-axis variable and y-axis variable, respectively."),
-
-
+                 p(em("geom_point()")," is used to create scatterplots."),
                  p("You can click the link below to check all types of", em("ggplot2"), "layers"),
                  uiOutput("reference")),
         "",
-        tabPanel("Component 3"),
+        tabPanel("3: simple exercises",
+                 p("Now, let's do some simple exercises. We are going to use ", em("diamonds"), "data set."),
+                 h4("Understand your data set."),
+                 useShinyjs(),
+                 actionButton("btn1", "hint"),
+                 textInput("hint1", "Use summary() or skimr::skim()")
+
+
+                 ),
         tabPanel("Component 4"),
         "-----",
         tabPanel("Component 5")
@@ -116,8 +124,7 @@ server <- function(input, output) {
 
     })
 
-
-
+    # simple example section
 
 
 }
