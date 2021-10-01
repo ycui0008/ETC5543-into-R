@@ -13,6 +13,7 @@ library(readr) # Import
 library(ggplot2) # Import
 library(magrittr) # Import
 library(shinyjs)
+library(gradethis)
 
 url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 
@@ -84,7 +85,11 @@ ui <- fluidPage(
         tabPanel("3: simple exercises",
                  p("Now, let's do some simple exercises. We are going to use ", em("diamonds"), "data set."),
                  h4("Understand your data set."),
-                 textInput(),
+                 # learner enter code here
+                 textInput("simpleEx1",
+                           label = h4("Enter your code here:")),
+                 verbatimTextOutput("Ex1sol"),
+
                  useShinyjs(),
                  actionButton("btn1", "Hint"),
                  hidden(
@@ -131,6 +136,26 @@ server <- function(input, output) {
 
     # simple example section
 
+    output$Ex1sol <- renderPrint({
+        # eval(parse(text = input$simpleEx1),envir = environment())
+
+        eval(grade_this({
+            if (identical(input$simpleEx1, "summary(mtcars)")){
+                pass("Great work!")
+            }
+            fail("Retry.")
+        }), envir = environment())
+
+        # print(grade_this_code()(
+        #     eval(mock_this_exercise(
+        #         .user_code     = input$simpleEx1, # user's code
+        #         .solution_code = "summary(mtcars)"  # solution
+        #     ),envir = environment())
+        # ))
+    })
+
+
+    # Hint text
     observeEvent(input$btn1, {
         toggle('hint1')
         output$ht1 <- renderText({"Use summary() or skimr::skim()"})
