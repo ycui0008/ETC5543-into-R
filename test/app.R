@@ -59,18 +59,22 @@ ui <- fluidPage(
                  h3("Let's start with an easy example")
                  ),
         tabPanel("Example",
-                 selectInput("mtcars_x", label= h5("Select X-axis variable:"),
-                              choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
-                              selected = "cyl"),
-                 selectInput("mtcars_y", label= h5("Select y-axis variable:"),
-                              choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
-                              selected = "hp"),
-                 radioButtons("mtcars_geom", label = h5("select the plot type"),
-                              choices = list("geom_point()", "geom_jitter()"),
-                              selected = "geom_point()"),
+                 varSelectInput("mtcars_x", label= h5("Select X-axis variable:"), mtcars,
+                              # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                              selected = "cyl"
+                              ),
+                 varSelectInput("mtcars_y", label= h5("Select y-axis variable:"), mtcars,
+                              # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                              selected = "hp"
+                              ),
+                 # radioButtons("mtcars_geom", label = h5("select the plot type"),
+                 #              choices = list("geom_point()", "geom_jitter()"),
+                 #              selected = "geom_point()"),
                  verbatimTextOutput("eg1"),
                  plotOutput("egPlot1"),
-
+                 p("Now, you can understand the basic algorithm of ", em("ggplot.")),
+                 p("Within ", em("aes()"),
+                   ", the x and y are standing for x-axis variable and y-axis variable, respectively."),
 
 
                  p("You can click the link below to check all types of", em("ggplot2"), "layers"),
@@ -96,8 +100,8 @@ server <- function(input, output) {
 
     output$eg1 <- renderPrint({
         cat("mtcars %>%",
-            "ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y,")) +",
-            input$mtcars_geom)
+            "ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y,")) + geom_point()"
+            )
     })
 
 
@@ -106,9 +110,10 @@ server <- function(input, output) {
         vx <- input$mtcars_x
         vy <- input$mtcars_y
 
-        p1 <- ggplot(data = mtcars, aes(x = deparse(vx), y = deparse(vy)))
+        p1 <- ggplot(data = mtcars, aes(x = {{vx}}, y = {{vy}}))
 
         p1 + geom_point()
+
     })
 
 
