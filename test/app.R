@@ -44,6 +44,7 @@ ui <- fluidPage(
                    ": observations (rows), variables (columns), variables types, and missing values."),
                  br(),
                  "For a data set built in a package, it has description about its data source and variables.",
+                 hr(),
                  h3("First,"),
                  div(HTML("Try to type <em>`?mtcars`</em> in the console")),
                  p("In your", em("help"),"panel will show the same thing as the screenshot below"),
@@ -54,6 +55,7 @@ ui <- fluidPage(
                  br(),
                  "This step is important before drawing any plots,
                  because different types of plots are suitable for different types of variable.",
+                 hr(),
                  h3("Second,"),
                  p("Use", em("skimr::skim()"), "or", em("summary()"), "function to have a first look of your data."),
                  img(src = 'summary mtcars.PNG', align = 'left'),
@@ -106,11 +108,10 @@ ui <- fluidPage(
                  hidden(div(id = "hint2",
                             verbatimTextOutput("ht2"))),
                  p("Remember: you can always use ", em("?diamonds"), " to read more information about the data set."),
-                 br(),
-                 br(),
+                 hr(),
+                 # Plot section
                  h4("Make a simple plot."),
-                 p(strong("Q:"), " Make a plot to show the relationship between price and carat.")
-
+                 p(strong("Q:"), " Make a plot to show the relationship between price and carat. Use scatterplot."),
 
                  ),
         tabPanel("Component 4"),
