@@ -33,3 +33,7 @@ vdiffr::expect_doppelganger("test1.png", b)
 b
 ggsave(filename = "test1.png")
 
+testthat::test_that("base histogram works", {
+  p <- function() hist(mtcars$disp)
+  expect_doppelganger("base histogram", p)
+})

@@ -112,7 +112,11 @@ ui <- fluidPage(
                  # Plot section
                  h4("Make a simple plot."),
                  p(strong("Q:"), " Make a plot to show the relationship between price and carat. Use scatterplot."),
+                 actionButton("btn3", "Sample Plot"),
+                 hidden(div(id = "pSolution1",
+                            plotOutput("pSol1"))),
 
+                 h6("Note: ")
                  ),
         tabPanel("Component 4"),
         "-----",
@@ -185,7 +189,16 @@ server <- function(input, output) {
     })
 
 
+    # Sample plot
 
+    observeEvent(input$btn3, {
+        toggle('pSolution1')
+        output$pSol1 <- renderPlot({
+            diamonds %>%
+                ggplot(aes(x = carat, y = price)) +
+                geom_point()
+        })
+    })
 
 }
 
