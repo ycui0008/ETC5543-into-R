@@ -14,6 +14,7 @@ library(ggplot2) # Import
 library(magrittr) # Import
 library(shinyjs)
 library(gradethis)
+library(skimr)
 
 url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 
@@ -32,6 +33,7 @@ who_covid <- read_csv(url) %>%
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+    useShinyjs(),
 
     titlePanel("ggplotIntro"),
 
@@ -60,7 +62,7 @@ ui <- fluidPage(
                  h3("Let's start with an easy example")
                  ),
 
-        tabPanel("2: simple example",
+        tabPanel("2: Simple example",
                  h4("Play around with the variables:"),
                  varSelectInput("mtcars_x", label= h5("Select X-axis variable:"), mtcars,
                               # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
@@ -82,21 +84,33 @@ ui <- fluidPage(
                  p("You can click the link below to check all types of", em("ggplot2"), "layers"),
                  uiOutput("reference")),
 
-        tabPanel("3: simple exercises",
-                 p("Now, let's do some simple exercises. We are going to use ", em("diamonds"), "data set."),
+        tabPanel("3: Simple exercises",
+                 p("Now, let's do some simple exercises. We are going to use ",
+                   em("diamonds"),
+                   "data set."),
                  h4("Understand your data set."),
                  # learner enter code here
                  textInput("simpleEx1",
-                           label = h4("Enter your code here:")),
+                           label = h4("Enter your code here:"),
+                           value = "diamonds"),
                  verbatimTextOutput("Ex1sol"),
 
-                 useShinyjs(),
+                 br(),
+                 br(),
                  actionButton("btn1", "Hint"),
-                 hidden(
-                     div(id = "hint1",
-                         verbatimTextOutput("ht1")
-                         )
-                 )
+                 hidden(div(id = "hint1",
+                            verbatimTextOutput("ht1"))),
+                 br(),
+                 br(),
+                 actionButton("btn2", "Solution"),
+                 hidden(div(id = "hint2",
+                            verbatimTextOutput("ht2"))),
+                 p("Remember: you can always use ", em("?diamonds"), " to read more information about the data set."),
+                 br(),
+                 br(),
+                 h4("Make a simple plot."),
+                 p(strong("Q:"), " Make a plot to show the relationship between price and carat.")
+
 
                  ),
         tabPanel("Component 4"),
@@ -135,31 +149,41 @@ server <- function(input, output) {
     })
 
     # simple example section
-
     output$Ex1sol <- renderPrint({
-        # eval(parse(text = input$simpleEx1),envir = environment())
+        eval(parse(text = input$simpleEx1), envir = environment())
 
-        eval(grade_this({
-            if (identical(input$simpleEx1, "summary(mtcars)")){
-                pass("Great work!")
-            }
-            fail("Retry.")
-        }), envir = environment())
+        # eval(grade_this({
+        #     if (identical(input$simpleEx1, "summary(mtcars)")){
+        #         pass("Great work!")
+        #     }
+        #     fail("Retry.")
+        # }), envir = environment())
 
-        # print(grade_this_code()(
+        # grade_this_code()(
         #     eval(mock_this_exercise(
         #         .user_code     = input$simpleEx1, # user's code
         #         .solution_code = "summary(mtcars)"  # solution
         #     ),envir = environment())
-        # ))
+        # )
     })
 
 
-    # Hint text
+    # Hint 1 text
     observeEvent(input$btn1, {
         toggle('hint1')
         output$ht1 <- renderText({"Use summary() or skimr::skim()"})
     })
+
+    # Solution 1 text
+
+    observeEvent(input$btn2, {
+        toggle('hint2')
+        output$ht2 <- renderText({
+            "summary(diamonds) or skimr::skim(diamonds)"
+            })
+    })
+
+
 
 
 }
