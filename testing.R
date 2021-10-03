@@ -42,7 +42,8 @@ testthat::test_that("base histogram works", {
 diamonds %>%
   ggplot(aes(x = cut, y = carat)) +
   # geom_boxplot() +
-  geom_jitter()
+  geom_jitter(alpha = 0.5) +
+  geom_boxplot()
 
 diamonds %>%
   ggplot(aes(x = color, y = cut)) +

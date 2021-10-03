@@ -127,8 +127,12 @@ ui <- fluidPage(
                  hidden(div(id = "pSolution2",
                             plotOutput("pSol2"))),
                  p("This plot is not informative, because many points are overlapping and we cannot know how many observations
-                   in each", em(" cut")," group.")
-
+                   in each", em(" cut")," group."),
+                 p("Now, we can use ", em("geom_jitter() or geom_boxplot()"), " to make better plot."),
+                 verbatimTextOutput("jittercode"),
+                 plotOutput("jitterexample"),
+                 verbatimTextOutput("boxcode"),
+                 plotOutput("boxexample")
                  ),
         tabPanel("4. Colour"),
         "-----",
@@ -222,6 +226,36 @@ server <- function(input, output) {
                 geom_point()
         })
     })
+
+    # Code: jitter and boxplot for diamonds
+
+    output$jittercode <- renderPrint({
+        cat(paste("diamonds %>% ",
+               "    ggplot(aes(x = cut, y = carat)) +",
+               "    geom_jitter(alpha = 0.5)  # alpha is a argument to control transparency",
+               sep = '\n'))
+    })
+
+    output$jitterexample <- renderPlot({
+        diamonds %>%
+            ggplot(aes(x = cut, y = carat)) +
+            geom_jitter(alpha = 0.5)
+    })
+
+    output$boxcode <- renderPrint({
+        cat(paste("diamonds %>% ",
+                  "    ggplot(aes(x = cut, y = carat)) +",
+                  "    geom_boxplot()",
+                  sep = '\n'))
+    })
+
+    output$boxexample <- renderPlot({
+        diamonds %>%
+            ggplot(aes(x = cut, y = carat)) +
+            geom_boxplot()
+    })
+
+
 }
 
 # Run the application
