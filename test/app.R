@@ -90,7 +90,7 @@ ui <- fluidPage(
                  p("Now, let's do some simple exercises. We are going to use ",
                    em("diamonds"),
                    "data set."),
-                 h4("Understand your data set."),
+                 p(strong("Q1: "),"understand your data set."),
                  # learner enter code here
                  textInput("simpleEx1",
                            label = h4("Enter your code here:"),
@@ -111,14 +111,26 @@ ui <- fluidPage(
                  hr(),
                  # Plot section
                  h4("Make a simple plot."),
-                 p(strong("Q:"), " Make a plot to show the relationship between price and carat. Use scatterplot."),
+                 p(strong("Q2: "), "Make a plot depicting price against carat. Use scatterplot."),
+                 p("Conventionally speaking, Vertical axis (y) ",
+                   span(strong("against / versus "), style = "color: red"), # change text colour in red
+                   "Horizontal axis (x)."),
                  actionButton("btn3", "Sample Plot"),
                  hidden(div(id = "pSolution1",
                             plotOutput("pSol1"))),
 
-                 h6("Note: ")
+                 # carat against cut
+                 h5(strong("Note: "), "now, we are only dealing with numeric variables; let's try to plot character variables."),
+                 p(strong("Q3: "), "Make a plot depicting carat against cut Use scatterplot."),
+
+                 actionButton("btn4", "Sample Plot"),
+                 hidden(div(id = "pSolution2",
+                            plotOutput("pSol2"))),
+                 p("This plot is not informative, because many points are overlapping and we cannot know how many observations
+                   in each", em(" cut")," group.")
+
                  ),
-        tabPanel("Component 4"),
+        tabPanel("4. Colour"),
         "-----",
         tabPanel("Component 5")
     )
@@ -189,7 +201,7 @@ server <- function(input, output) {
     })
 
 
-    # Sample plot
+    # Sample plot1
 
     observeEvent(input$btn3, {
         toggle('pSolution1')
@@ -200,6 +212,16 @@ server <- function(input, output) {
         })
     })
 
+    # Sample plot2
+
+    observeEvent(input$btn4, {
+        toggle('pSolution2')
+        output$pSol2 <- renderPlot({
+            diamonds %>%
+                ggplot(aes(x = cut, y = carat)) +
+                geom_point()
+        })
+    })
 }
 
 # Run the application

@@ -37,3 +37,14 @@ testthat::test_that("base histogram works", {
   p <- function() hist(mtcars$disp)
   expect_doppelganger("base histogram", p)
 })
+
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat)) +
+  # geom_boxplot() +
+  geom_jitter()
+
+diamonds %>%
+  ggplot(aes(x = color, y = cut)) +
+  # geom_boxplot() +
+  geom_jitter(alpha = 0.5)
