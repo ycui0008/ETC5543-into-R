@@ -164,17 +164,16 @@ ui <- fluidPage(
                  verbatimTextOutput("boxcode"),
                  plotOutput("boxexample")
                  ),
-        tabPanel("4. Colour",
-                 includeMarkdown("Colour.md"),
+        tabPanel("4. Colour or Shape",
+                 includeHTML("Colour.html"),
+                 hr(),
+                 h4("Example"),
                  verbatimTextOutput("sccode1"),
                  plotOutput("scexample1"),
+                 p("Here, we use colour to represent the types of engine. 0 is V-shaped engine, while 1 is straight engine."),
+                 p(""),
+                 hr(),
 
-
-
-                 p("Choice of color is a major factor in creating effective charts.
-                   A good set of colors will highlight the story you want the data to
-                   tell, while a poor one will hide or distract from a visualization’s
-                   purpose.")
                  ),
         "-----",
         tabPanel("Component 5")
