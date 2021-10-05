@@ -37,7 +37,7 @@ diamonds
 "
 
 q2entry <- "
-### fill in the blanks
+
 
 ```{r}
 diamonds %>%
@@ -47,7 +47,7 @@ diamonds %>%
 "
 
 q3entry <- "
-### fill in the blanks
+
 
 ```{r}
 diamonds %>%
@@ -81,7 +81,7 @@ ui <- fluidPage(
                               selected = "hp"
                               ),
                  radioButtons("mtcars_geom", label = h5("select the plot type"),
-                              choices = list("geom_point()", "geom_jitter()"),
+                              choices = list("geom_point()", "geom_jitter()", "geom_boxplot()", "geom_line()"),
                               selected = "geom_point()"),
                  verbatimTextOutput("eg1"),
                  plotOutput("egPlot1"),
@@ -124,7 +124,7 @@ ui <- fluidPage(
 
                  # Q2
                  h4("Make a simple plot."),
-                 p(strong("Q2: "), "Make a plot depicting price against carat. Use scatterplot."),
+                 p(strong("Q2: "), "Make a plot depicting price against carat. Use scatterplot (fill in the blanks)."),
                  p("Conventionally speaking, Vertical axis (y) ",
                    span(strong("against / versus "), style = "color: red"), # change text colour in red
                    "Horizontal axis (x)."),
@@ -134,28 +134,33 @@ ui <- fluidPage(
                  actionButton("eval2", "Submit"),
                  shinycssloaders::withSpinner(htmlOutput("q2output")),
 
-                 actionButton("btn3", "Sample Plot"),
+                 actionButton("btn3", "Solution"),
                  hidden(div(id = "pSolution1",
                             plotOutput("pSol1"))),
                  hr(),
 
                  # Q3: carat against cut
                  h5(strong("Note: "), "now, we are only dealing with numeric variables; let's try to plot character variables."),
-                 p(strong("Q3: "), "Make a plot depicting carat against cut Use scatterplot."),
+                 p(strong("Q3: "), "Make a plot depicting carat against cut Use scatterplot (fill in the blanks)."),
 
                  # User enter code - UI
                  aceEditor("Q3", mode = "r", value = q3entry),
                  actionButton("eval3", "Submit"),
                  shinycssloaders::withSpinner(htmlOutput("q3output")),
 
-                 actionButton("btn4", "Sample Plot"),
+                 actionButton("btn4", "Solution"),
                  hidden(div(id = "pSolution2",
                             plotOutput("pSol2"))),
+
+                 # Improvement -- geom_boxplot() or geom_jitter()
+
                  p("This plot is not informative, because many points are overlapping and we cannot know how many observations
                    in each", em(" cut")," group."),
                  p("Now, we can use ", em("geom_jitter() or geom_boxplot()"), " to make better plot."),
+
                  verbatimTextOutput("jittercode"),
                  plotOutput("jitterexample"),
+
                  verbatimTextOutput("boxcode"),
                  plotOutput("boxexample")
                  ),
@@ -191,9 +196,9 @@ server <- function(input, output) {
     # mtcars example text part
 
     output$eg1 <- renderPrint({
-        cat("mtcars %>%",
-            "ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y,")) + geom_point()"
-            )
+        cat(paste("mtcars %>%",
+            paste0("    ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y, ")) +"),
+            paste0("    ",input$mtcars_geom), sep = '\n'))
     })
 
 
@@ -314,6 +319,8 @@ server <- function(input, output) {
             ggplot(aes(x = cut, y = carat)) +
             geom_boxplot()
     })
+
+    # title and labs
 
 
 
