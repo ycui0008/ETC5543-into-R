@@ -49,3 +49,7 @@ diamonds %>%
   ggplot(aes(x = color, y = cut)) +
   # geom_boxplot() +
   geom_jitter(alpha = 0.5)
+
+mtcars %>%
+  ggplot(aes(x = cyl, y = hp, colour = factor(vs))) +
+  geom_point()

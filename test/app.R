@@ -165,10 +165,7 @@ ui <- fluidPage(
                  plotOutput("boxexample")
                  ),
         tabPanel("4. Colour",
-                 h3("Why would we use colour in plots?"),
-                 p("2D plots are more understandable than 3D plots.
-                   Colour will be additional dimension in the plot."),
-                 h3("Example"),
+                 includeMarkdown("Colour.md"),
                  verbatimTextOutput("sccode1"),
                  plotOutput("scexample1"),
 
@@ -320,11 +317,24 @@ server <- function(input, output) {
             geom_boxplot()
     })
 
-    # title and labs
+    # Colour section ---
 
+    output$sccode1 <- renderPrint({
+        cat(paste("mtcars %>% ",
+                  "    ggplot(aes(x = cyl, y = hp, colour = factor(vs))) +",
+                  "    geom_point()",
+                  sep = '\n'))
+    })
 
-
-
+    output$scexample1 <- renderPlot({
+        mtcars %>%
+            ggplot(aes(
+                x = cyl,
+                y = hp,
+                colour = factor(vs)
+            )) +
+            geom_point()
+    })
 
 }
 
