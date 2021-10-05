@@ -15,6 +15,7 @@ library(magrittr) # Import
 library(shinyjs)
 library(gradethis)
 library(skimr)
+library(shinyAce)
 
 url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 
@@ -29,6 +30,32 @@ who_covid <- read_csv(url) %>%
         deaths_cumulative_total_per_100000_population
     )
 
+q1entry <- "
+```{r}
+diamonds
+```
+"
+
+q2entry <- "
+### fill in the blanks
+
+```{r}
+diamonds %>%
+    ggplot(aes(x = ___, y = ___)) +
+    geom_point()
+```
+"
+
+q3entry <- "
+### fill in the blanks
+
+```{r}
+diamonds %>%
+    ggplot(aes(x = ___, y = ___)) +
+    geom_point()
+
+```
+"
 
 
 # Define UI for application that draws a histogram
@@ -40,28 +67,7 @@ ui <- fluidPage(
     navlistPanel(
         "Let's start",
         tabPanel("1: Understand your data",
-                 p("A data set has its own", strong("characteristics"),
-                   ": observations (rows), variables (columns), variables types, and missing values."),
-                 br(),
-                 "For a data set built in a package, it has description about its data source and variables.",
-                 hr(),
-                 h3("First,"),
-                 div(HTML("Try to type <em>`?mtcars`</em> in the console")),
-                 p("In your", em("help"),"panel will show the same thing as the screenshot below"),
-                 br(),
-                 br(),
-                 img(src = 'mtcars.PNG', align = "left"),
-                 br(),
-                 br(),
-                 "This step is important before drawing any plots,
-                 because different types of plots are suitable for different types of variable.",
-                 hr(),
-                 h3("Second,"),
-                 p("Use", em("skimr::skim()"), "or", em("summary()"), "function to have a first look of your data."),
-                 img(src = 'summary mtcars.PNG', align = 'left'),
-                 br(),
-                 br(),
-                 h3("Let's start with an easy example")
+                 includeMarkdown("First section.md")
                  ),
 
         tabPanel("2: Simple example",
@@ -74,9 +80,9 @@ ui <- fluidPage(
                               # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
                               selected = "hp"
                               ),
-                 # radioButtons("mtcars_geom", label = h5("select the plot type"),
-                 #              choices = list("geom_point()", "geom_jitter()"),
-                 #              selected = "geom_point()"),
+                 radioButtons("mtcars_geom", label = h5("select the plot type"),
+                              choices = list("geom_point()", "geom_jitter()"),
+                              selected = "geom_point()"),
                  verbatimTextOutput("eg1"),
                  plotOutput("egPlot1"),
                  p("Now, you can understand the basic algorithm of ", em("ggplot.")),
@@ -90,12 +96,18 @@ ui <- fluidPage(
                  p("Now, let's do some simple exercises. We are going to use ",
                    em("diamonds"),
                    "data set."),
+                 # Q1
                  p(strong("Q1: "),"understand your data set."),
-                 # learner enter code here
-                 textInput("simpleEx1",
-                           label = h4("Enter your code here:"),
-                           value = "diamonds"),
-                 verbatimTextOutput("Ex1sol"),
+                 # textInput("simpleEx1",
+                 #           label = h4("Enter your code here:"),
+                 #           value = "diamonds"),
+                 # verbatimTextOutput("Ex1sol"),
+
+                 # User enter code - UI
+                 aceEditor("Q1", mode = "r", value = q1entry),
+                 actionButton("eval1", "Submit"),
+                 shinycssloaders::withSpinner(htmlOutput("q1output")),
+
 
                  br(),
                  br(),
@@ -109,19 +121,32 @@ ui <- fluidPage(
                             verbatimTextOutput("ht2"))),
                  p("Remember: you can always use ", em("?diamonds"), " to read more information about the data set."),
                  hr(),
-                 # Plot section
+
+                 # Q2
                  h4("Make a simple plot."),
                  p(strong("Q2: "), "Make a plot depicting price against carat. Use scatterplot."),
                  p("Conventionally speaking, Vertical axis (y) ",
                    span(strong("against / versus "), style = "color: red"), # change text colour in red
                    "Horizontal axis (x)."),
+
+                 # User enter code - UI
+                 aceEditor("Q2", mode = "r", value = q2entry),
+                 actionButton("eval2", "Submit"),
+                 shinycssloaders::withSpinner(htmlOutput("q2output")),
+
                  actionButton("btn3", "Sample Plot"),
                  hidden(div(id = "pSolution1",
                             plotOutput("pSol1"))),
+                 hr(),
 
-                 # carat against cut
+                 # Q3: carat against cut
                  h5(strong("Note: "), "now, we are only dealing with numeric variables; let's try to plot character variables."),
                  p(strong("Q3: "), "Make a plot depicting carat against cut Use scatterplot."),
+
+                 # User enter code - UI
+                 aceEditor("Q3", mode = "r", value = q3entry),
+                 actionButton("eval3", "Submit"),
+                 shinycssloaders::withSpinner(htmlOutput("q3output")),
 
                  actionButton("btn4", "Sample Plot"),
                  hidden(div(id = "pSolution2",
@@ -134,7 +159,21 @@ ui <- fluidPage(
                  verbatimTextOutput("boxcode"),
                  plotOutput("boxexample")
                  ),
-        tabPanel("4. Colour"),
+        tabPanel("4. Colour",
+                 h3("Why would we use colour in plots?"),
+                 p("2D plots are more understandable than 3D plots.
+                   Colour will be additional dimension in the plot."),
+                 h3("Example"),
+                 verbatimTextOutput("sccode1"),
+                 plotOutput("scexample1"),
+
+
+
+                 p("Choice of color is a major factor in creating effective charts.
+                   A good set of colors will highlight the story you want the data to
+                   tell, while a poor one will hide or distract from a visualization’s
+                   purpose.")
+                 ),
         "-----",
         tabPanel("Component 5")
     )
@@ -163,29 +202,30 @@ server <- function(input, output) {
         vx <- input$mtcars_x
         vy <- input$mtcars_y
 
-        p1 <- ggplot(data = mtcars, aes(x = {{vx}}, y = {{vy}}))
+        p1 <- ggplot(data = mtcars, aes(x = {
+            {
+                vx
+            }
+        }, y = {
+            {
+                vy
+            }
+        }))
 
-        p1 + geom_point()
+        # if (input$mtcars_geom == "geom_point()") {
+        #     p1 + geom_point()
+        # } else if (input$mtcars_geom == "geom_jitter()"){
+        #     p1 + geom_jitter()
+        # }
+
+        p1 + eval(parse(text = input$mtcars_geom))
+
 
     })
 
     # simple example section
     output$Ex1sol <- renderPrint({
         eval(parse(text = input$simpleEx1), envir = environment())
-
-        # eval(grade_this({
-        #     if (identical(input$simpleEx1, "summary(mtcars)")){
-        #         pass("Great work!")
-        #     }
-        #     fail("Retry.")
-        # }), envir = environment())
-
-        # grade_this_code()(
-        #     eval(mock_this_exercise(
-        #         .user_code     = input$simpleEx1, # user's code
-        #         .solution_code = "summary(mtcars)"  # solution
-        #     ),envir = environment())
-        # )
     })
 
 
@@ -193,6 +233,12 @@ server <- function(input, output) {
     observeEvent(input$btn1, {
         toggle('hint1')
         output$ht1 <- renderText({"Use summary() or skimr::skim()"})
+    })
+
+    # Q1 output
+    output$q1output <- renderUI({
+        input$eval1
+        HTML(knitr::knit2html(text = isolate(input$Q1), fragment.only = TRUE, quiet = TRUE))
     })
 
     # Solution 1 text
@@ -204,8 +250,14 @@ server <- function(input, output) {
             })
     })
 
+    # Q2 output
+    output$q2output <- renderUI({
+        input$eval2
+        HTML(knitr::knit2html(text = isolate(input$Q2), fragment.only = TRUE, quiet = TRUE))
+    })
 
-    # Sample plot1
+
+    # Q2: Sample plot1
 
     observeEvent(input$btn3, {
         toggle('pSolution1')
@@ -216,7 +268,13 @@ server <- function(input, output) {
         })
     })
 
-    # Sample plot2
+    # Q3 output
+    output$q3output <- renderUI({
+        input$eval3
+        HTML(knitr::knit2html(text = isolate(input$Q3), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    # Q3: Sample plot2
 
     observeEvent(input$btn4, {
         toggle('pSolution2')
@@ -226,6 +284,8 @@ server <- function(input, output) {
                 geom_point()
         })
     })
+
+
 
     # Code: jitter and boxplot for diamonds
 
@@ -254,6 +314,9 @@ server <- function(input, output) {
             ggplot(aes(x = cut, y = carat)) +
             geom_boxplot()
     })
+
+
+
 
 
 }
