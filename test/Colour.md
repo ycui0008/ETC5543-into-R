@@ -10,7 +10,9 @@ Colour is more frequently used than shape, because human's eyes are more sensiti
 
 ### Be careful about colours
 
-When there are too many levels of a variable, we should be careful because the choice of colour is a major factor in creating effective charts. A good set of colours will highlight the story you want the data to tell, while a poor one will hide or distract from a visualisation’s purpose.
+When there are too many levels of a variable, we should be careful because the choice of colour is a major factor in creating effective charts. We should also consider colour blind people. A good set of colours will highlight the story you want the data to tell, while a poor one will hide or distract from a visualisation’s purpose. In conclusion, colours in plots can be a big topic -- it can be very complex, so, we will not discuss too much about colour selections here.
+
+
 
 #### Different types of colour
 

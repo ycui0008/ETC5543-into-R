@@ -171,8 +171,8 @@ ui <- fluidPage(
                  verbatimTextOutput("sccode1"),
                  plotOutput("scexample1"),
                  p("Here, we use colour to represent the types of engine. 0 is V-shaped engine, while 1 is straight engine."),
-                 p(""),
                  hr(),
+                 h3("Simple exercises")
 
                  ),
         "-----",
