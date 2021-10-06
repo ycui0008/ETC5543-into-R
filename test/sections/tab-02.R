@@ -1,0 +1,21 @@
+tab02 <- tabPanel("2: Simple example",
+         h4("Play around with the variables:"),
+         varSelectInput("mtcars_x", label= h5("Select X-axis variable:"), mtcars,
+                        # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                        selected = "cyl"
+         ),
+         varSelectInput("mtcars_y", label= h5("Select Y-axis variable:"), mtcars,
+                        # choices = list("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                        selected = "hp"
+         ),
+         radioButtons("mtcars_geom", label = h5("select the plot type"),
+                      choices = list("geom_point()", "geom_jitter()", "geom_boxplot()", "geom_line()"),
+                      selected = "geom_point()"),
+         verbatimTextOutput("eg1"),
+         plotOutput("egPlot1"),
+         p("Now, you can understand the basic algorithm of ", em("ggplot.")),
+         p("Within ", em("aes()"),
+           ", the x and y are standing for x-axis variable and y-axis variable, respectively."),
+         p(em("geom_point()")," is used to create scatterplots."),
+         p("You can click the link below to check all types of", em("ggplot2"), "layers"),
+         uiOutput("reference"))
