@@ -30,6 +30,8 @@ who_covid <- read_csv(url) %>%
         deaths_cumulative_total_per_100000_population
     )
 
+score <- 0
+
 q1entry <- "
 ```{r}
 diamonds
@@ -42,6 +44,16 @@ q2entry <- "
 ```{r}
 diamonds %>%
     ggplot(aes(x = ___, y = ___)) +
+    geom_point()
+```
+"
+
+q2sol <- "
+
+
+```{r}
+diamonds %>%
+    ggplot(aes(x = cut, y = carat)) +
     geom_point()
 ```
 "
@@ -133,6 +145,7 @@ ui <- fluidPage(
                  aceEditor("Q2", mode = "r", value = q2entry),
                  actionButton("eval2", "Submit"),
                  shinycssloaders::withSpinner(htmlOutput("q2output")),
+                 htmlOutput("q2compare"),
 
                  actionButton("btn3", "Solution"),
                  hidden(div(id = "pSolution1",
@@ -255,6 +268,15 @@ server <- function(input, output) {
     output$q2output <- renderUI({
         input$eval2
         HTML(knitr::knit2html(text = isolate(input$Q2), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    output$q2compare <- renderUI({
+        input$eval2
+        if (input$Q2 == q2sol) {
+            "Success"
+        } else {
+            "Wrong"
+        }
     })
 
 

@@ -4,8 +4,7 @@ q3entry <- "
 
 
 ```{r}
-diamonds %>%
-    ggplot(aes(x = ___, y = ___)) +
+ggplot(data = head(diamonds,1000), aes(x = ___, y = ___)) +
     geom_point()
 
 ```
@@ -22,7 +21,7 @@ question <- tagList(
 
   actionButton("btn4", "Solution"),
   hidden(div(id = "pSolution2",
-             plotOutput("pSol2"))),
+             shinycssloaders::withSpinner(plotOutput("pSol2")))),
 
   # Improvement -- geom_boxplot() or geom_jitter()
 

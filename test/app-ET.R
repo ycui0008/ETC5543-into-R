@@ -64,8 +64,7 @@ server <- function(input, output) {
     # mtcars example text part
 
     output$eg1 <- renderPrint({
-        cat(paste("mtcars %>%",
-            paste0("    ggplot(aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y, ")) +"),
+        cat(paste(paste0("ggplot(data = mtcars, aes(x = ", input$mtcars_x, ", y = ", input$mtcars_y, ")) +"),
             paste0("    ",input$mtcars_geom), sep = '\n'))
     })
 
@@ -129,6 +128,15 @@ server <- function(input, output) {
         HTML(knitr::knit2html(text = isolate(input$Q2), fragment.only = TRUE, quiet = TRUE))
     })
 
+    output$q2compare <- renderUI({
+        input$eval2
+        if (input$Q2 == q2sol) {
+            "Success"
+        } else {
+            "Wrong"
+        }
+    })
+
 
     # Q2: Sample plot1
 
@@ -136,10 +144,13 @@ server <- function(input, output) {
         toggle('pSolution1')
         output$pSol1 <- renderPlot({
             diamonds %>%
+                head(1000) %>%
                 ggplot(aes(x = carat, y = price)) +
                 geom_point()
         })
     })
+
+
 
     # Q3 output
     output$q3output <- renderUI({
@@ -153,6 +164,7 @@ server <- function(input, output) {
         toggle('pSolution2')
         output$pSol2 <- renderPlot({
             diamonds %>%
+                head(1000) %>%
                 ggplot(aes(x = cut, y = carat)) +
                 geom_point()
         })
@@ -163,8 +175,7 @@ server <- function(input, output) {
     # Code: jitter and boxplot for diamonds
 
     output$jittercode <- renderPrint({
-        cat(paste("diamonds %>% ",
-               "    ggplot(aes(x = cut, y = carat)) +",
+        cat(paste("ggplot(data = mtcars, aes(x = cut, y = carat)) +",
                "    geom_jitter(alpha = 0.5)  # alpha is a argument to control transparency",
                sep = '\n'))
     })
@@ -176,8 +187,7 @@ server <- function(input, output) {
     })
 
     output$boxcode <- renderPrint({
-        cat(paste("diamonds %>% ",
-                  "    ggplot(aes(x = cut, y = carat)) +",
+        cat(paste("ggplot(data = diamonds, aes(x = cut, y = carat)) +",
                   "    geom_boxplot()",
                   sep = '\n'))
     })

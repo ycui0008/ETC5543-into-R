@@ -4,8 +4,16 @@ q2entry <- "
 
 
 ```{r}
-diamonds %>%
-    ggplot(aes(x = ___, y = ___)) +
+ggplot(data = head(diamonds,1000), aes(x = ___, y = ___)) +
+    geom_point()
+```
+"
+
+q2sol <- "
+
+
+```{r}
+ggplot(data = head(diamonds,1000), aes(x = carat, y = price)) +
     geom_point()
 ```
 "
@@ -21,10 +29,11 @@ question <- tagList(
   aceEditor("Q2", mode = "r", value = q2entry),
   actionButton("eval2", "Submit"),
   shinycssloaders::withSpinner(htmlOutput("q2output")),
+  htmlOutput("q2compare"),
 
   actionButton("btn3", "Solution"),
   hidden(div(id = "pSolution1",
-             plotOutput("pSol1"))),
+             shinycssloaders::withSpinner(plotOutput("pSol1")))),
   hr()
 )
 

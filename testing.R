@@ -31,7 +31,7 @@ vdiffr::expect_doppelganger("test1.png", b)
 vdiffr::expect_doppelganger("test1.png", b)
 
 b
-ggsave(filename = "test1.png")
+ggsave(filename = "test1.svg")
 
 testthat::test_that("base histogram works", {
   p <- function() hist(mtcars$disp)
@@ -46,9 +46,14 @@ diamonds %>%
   geom_boxplot()
 
 diamonds %>%
+  head(1000) %>%
   ggplot(aes(x = color, y = cut)) +
   # geom_boxplot() +
   geom_jitter(alpha = 0.5)
+
+mtcars %>%
+  ggplot(aes(x = disp, y = mpg)) +
+  geom_point()
 
 mtcars %>%
   ggplot(aes(x = cyl, y = hp, colour = factor(vs))) +
