@@ -12,4 +12,6 @@ tab03 <- tabPanel("3: Simple exercises",
          # Q2
          q2,
          # Q3: carat against cut
-         q3)
+         q3,
+         actionButton("score_btn_1", "Show total score"),
+         uiOutput("sum_score_tab3"))

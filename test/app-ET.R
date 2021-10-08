@@ -34,6 +34,9 @@ for(i in 1:4) {
     source(sprintf("sections/tab-%.2d.R", i))
 }
 
+score_q1 <- 0
+score_q2 <- 0
+score_q3 <- 0
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -122,6 +125,17 @@ server <- function(input, output) {
             })
     })
 
+    output$q1compare <- renderUI({
+        input$eval1
+        if (input$Q1 == q1sol) {
+            score_q1 <<- 1
+            "Success"
+        } else {
+            score_q1 <<- 0
+            "Wrong"
+        }
+    })
+
     # Q2 output
     output$q2output <- renderUI({
         input$eval2
@@ -131,12 +145,13 @@ server <- function(input, output) {
     output$q2compare <- renderUI({
         input$eval2
         if (input$Q2 == q2sol) {
+            score_q2 <<- 1
             "Success"
         } else {
+            score_q2 <<- 0
             "Wrong"
         }
     })
-
 
     # Q2: Sample plot1
 
@@ -170,6 +185,17 @@ server <- function(input, output) {
         })
     })
 
+    output$q3compare <- renderUI({
+        input$eval3
+        if (input$Q3 == q3sol) {
+            score_q3 <<- 1
+            "Success"
+        } else {
+            score_q3 <<- 0
+            "Wrong"
+        }
+    })
+
 
 
     # Code: jitter and boxplot for diamonds
@@ -196,6 +222,14 @@ server <- function(input, output) {
         diamonds %>%
             ggplot(aes(x = cut, y = carat)) +
             geom_boxplot()
+    })
+
+    # show sum of score for tab3
+
+    output$sum_score_tab3<- renderUI({
+        input$score_btn_1
+            sum_score <- score_q1 + score_q2 + score_q3
+        as.character(sum_score)
     })
 
     # Colour section ---

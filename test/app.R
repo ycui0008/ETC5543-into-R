@@ -274,9 +274,16 @@ server <- function(input, output) {
         input$eval2
         if (input$Q2 == q2sol) {
             "Success"
+
         } else {
             "Wrong"
         }
+    })
+
+    q2score <- reactive({
+      input$eval2
+        if (input$Q2 == q2sol)
+
     })
 
 

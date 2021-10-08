@@ -10,6 +10,16 @@ ggplot(data = head(diamonds,1000), aes(x = ___, y = ___)) +
 ```
 "
 
+q3sol <- "
+
+
+```{r}
+ggplot(data = head(diamonds,1000), aes(x = cut, y = carat)) +
+    geom_point()
+
+```
+"
+
 question <- tagList(
   h5(strong("Note: "), "now, we are only dealing with numeric variables; let's try to plot character variables."),
   p(strong("Q3: "), "Make a plot depicting carat against cut Use scatterplot (fill in the blanks)."),
@@ -18,6 +28,7 @@ question <- tagList(
   aceEditor("Q3", mode = "r", value = q3entry),
   actionButton("eval3", "Submit"),
   shinycssloaders::withSpinner(htmlOutput("q3output")),
+  htmlOutput("q3compare"),
 
   actionButton("btn4", "Solution"),
   hidden(div(id = "pSolution2",

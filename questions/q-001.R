@@ -6,6 +6,12 @@ diamonds
 ```
 "
 
+q1sol <- "
+```{r}
+summary(diamonds)
+```
+"
+
 question <- tagList(
   p(strong("Q1: "),"understand your data set."),
   # textInput("simpleEx1",
@@ -17,6 +23,7 @@ question <- tagList(
   aceEditor("Q1", mode = "r", value = q1entry),
   actionButton("eval1", "Submit"),
   shinycssloaders::withSpinner(htmlOutput("q1output")),
+  htmlOutput("q1compare"),
 
 
   br(),
