@@ -130,30 +130,6 @@ server <- function(input, output) {
         HTML(knitr::knit2html(text = isolate(input$Q1), fragment.only = TRUE, quiet = TRUE))
     })
 
-    # modal
-
-
-
-    # scoreModal <- function(failed = FALSE) {
-    #     modalDialog(
-    #         textInput("dataset", "Choose data set",
-    #                   placeholder = 'Try "mtcars" or "abc"'
-    #         ),
-    #         span('(Try the name of a valid data object like "mtcars", ',
-    #              'then a name of a non-existent object like "abc")'),
-    #         if (failed)
-    #             div(tags$b("Your answer is wrong, Please try again", style = "color: red;")),
-    #
-    #         footer = tagList(
-    #             modalButton("Retry")
-    #         )
-    #     )
-    # }
-
-    # Show modal when button is clicked.
-    # observeEvent(input$eval1, {
-    #     showModal(scoreModal())
-    # })
 
     # Solution 1 text
 
@@ -164,7 +140,7 @@ server <- function(input, output) {
             })
     })
 
-
+    # Modal dialog
     observeEvent(input$eval1, {
         if (input$Q1 == q1sol) {
             ModalTitle = "Success"
@@ -214,16 +190,40 @@ server <- function(input, output) {
         HTML(knitr::knit2html(text = isolate(input$Q2), fragment.only = TRUE, quiet = TRUE))
     })
 
-    output$q2compare <- renderUI({
-        input$eval2
-        isolate(if (input$Q2 == q2sol) {
+    # Modal dialog
+    observeEvent(input$eval2, {
+        if (input$Q2 == q2sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
             score_q2 <<- 1
-            "Success"
+
         } else {
             score_q2 <<- 0
-            "Wrong"
-        })
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
+        }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
     })
+
+
+
+    # output$q2compare <- renderUI({
+    #     input$eval2
+    #     isolate(if (input$Q2 == q2sol) {
+    #         score_q2 <<- 1
+    #         "Success"
+    #     } else {
+    #         score_q2 <<- 0
+    #         "Wrong"
+    #     })
+    # })
 
     # Q2: Sample plot1
 
@@ -257,16 +257,38 @@ server <- function(input, output) {
         })
     })
 
-    output$q3compare <- renderUI({
-        input$eval3
+    # Modal dialog
+    observeEvent(input$eval3, {
         if (input$Q3 == q3sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
             score_q3 <<- 1
-            "Success"
+
         } else {
             score_q3 <<- 0
-            "Wrong"
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
         }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
     })
+
+    # output$q3compare <- renderUI({
+    #     input$eval3
+    #     if (input$Q3 == q3sol) {
+    #         score_q3 <<- 1
+    #         "Success"
+    #     } else {
+    #         score_q3 <<- 0
+    #         "Wrong"
+    #     }
+    # })
 
 
 

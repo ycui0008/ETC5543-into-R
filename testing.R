@@ -83,14 +83,20 @@ for(i in 1:3) {
   sprintf("questions/q-%.3d.R", i)
 }
 
-
-# world bank GPD data -----------------------------------------------------
-
-url <- "https://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv"
-
-GDP <- read_csv(url)
-
-
 for(i in 1:3) {
   cat(paste0("questions-ui/q-",stringr::str_pad(i, 3, side = "left", pad = "0"), ".rds"))
 }
+
+# world bank GPD data -----------------------------------------------------
+
+
+GDP <- read_csv(here::here("test/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_3052522.csv"), skip = 4,
+                col_select = list(`Country Name`, `1960`:`2020`)) %>%
+  janitor::clean_names() %>%
+  mutate(country_name = case_when(country_name == "United Kingdom" ~ "UK",
+                                  country_name == "United States" ~ "USA",
+                                  TRUE ~ country_name))
+
+names(GDP)[-1] <- substring(names(GDP)[-1], 2)
+
+GDP %>% ggplot
