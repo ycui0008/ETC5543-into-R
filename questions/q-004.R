@@ -21,7 +21,7 @@ ggplot(data = mtcars, aes(x = mpg, y = hp, colour = wt)) +
 "
 
 question <- tagList(
-  p(strong("Q4: "),"understand your data set."),
+  p(strong("Q4: "),"Make a plot depicting hp against mpg and colouring wt. Use scatterplot (fill in the blanks)."),
 
 
   # User enter code - UI
@@ -34,7 +34,7 @@ question <- tagList(
   br(),
   actionButton("btn5", "Solution"),
   hidden(div(id = "pSolution3",
-             verbatimTextOutput("pSol3"))),
+             shinycssloaders::withSpinner(plotOutput("pSol3")))),
   hr()
 )
 

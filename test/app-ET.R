@@ -281,6 +281,13 @@ server <- function(input, output) {
     })
 
 
+    # show sum of score for tab4
+
+    output$sum_score_tab4<- renderUI({
+        input$score_btn_2
+        sum_score <- score_q4 + score_q5 + score_q6
+        as.character(sum_score)
+    })
 
 
 }
