@@ -130,6 +130,31 @@ server <- function(input, output) {
         HTML(knitr::knit2html(text = isolate(input$Q1), fragment.only = TRUE, quiet = TRUE))
     })
 
+    # modal
+
+
+
+    # scoreModal <- function(failed = FALSE) {
+    #     modalDialog(
+    #         textInput("dataset", "Choose data set",
+    #                   placeholder = 'Try "mtcars" or "abc"'
+    #         ),
+    #         span('(Try the name of a valid data object like "mtcars", ',
+    #              'then a name of a non-existent object like "abc")'),
+    #         if (failed)
+    #             div(tags$b("Your answer is wrong, Please try again", style = "color: red;")),
+    #
+    #         footer = tagList(
+    #             modalButton("Retry")
+    #         )
+    #     )
+    # }
+
+    # Show modal when button is clicked.
+    # observeEvent(input$eval1, {
+    #     showModal(scoreModal())
+    # })
+
     # Solution 1 text
 
     observeEvent(input$btn2, {
@@ -139,16 +164,49 @@ server <- function(input, output) {
             })
     })
 
-    output$q1compare <- renderUI({
-        input$eval1
+
+    observeEvent(input$eval1, {
         if (input$Q1 == q1sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
             score_q1 <<- 1
-            "Success"
+
         } else {
             score_q1 <<- 0
-            "Wrong"
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
         }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
+
+        # output$q1compare <- renderUI({
+        #     if (input$Q1 == q1sol) {
+        #         score_q1 <<- 1
+        #         "Success"
+        #     } else {
+        #         score_q1 <<- 0
+        #         "Wrong"
+        #     }
+        #     })
+
     })
+
+    # output$q1compare <- renderUI({
+    #     input$eval1
+    #     if (input$Q1 == q1sol) {
+    #         score_q1 <<- 1
+    #         "Success"
+    #     } else {
+    #         score_q1 <<- 0
+    #         "Wrong"
+    #     }
+    # })
 
     # Q2 output
     output$q2output <- renderUI({
@@ -240,11 +298,19 @@ server <- function(input, output) {
 
     # show sum of score for tab3
 
-    output$sum_score_tab3<- renderUI({
-        input$score_btn_1
-            sum_score <- score_q1 + score_q2 + score_q3
-        as.character(sum_score)
+    observeEvent(input$score_btn_1,{
+        sum_score <- score_q1 + score_q2 + score_q3
+
+        showModal(modalDialog(
+            title = paste0("You get ",as.character(sum_score), "/3 in this section.")
+        ))
     })
+
+    # output$sum_score_tab3<- renderUI({
+    #     input$score_btn_1
+    #         sum_score <- score_q1 + score_q2 + score_q3
+    #     as.character(sum_score)
+    # })
 
     # Colour section ---
 

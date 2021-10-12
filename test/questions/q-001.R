@@ -1,4 +1,4 @@
-source(here::here("questions/pkgs.R"))
+source("questions/pkgs.R")
 
 q1entry <- "
 ```{r}
@@ -12,7 +12,7 @@ summary(diamonds)
 ```
 "
 
-question <- tagList(
+q1 <- tagList(
   p(strong("Q1: "),"understand your data set."),
   # textInput("simpleEx1",
   #           label = h4("Enter your code here:"),
@@ -40,5 +40,5 @@ question <- tagList(
   hr()
 )
 
-saveRDS(question, here::here("test/questions-ui/q-001.rds"))
+# saveRDS(question, here::here("test/questions-ui/q-001.rds"))
 

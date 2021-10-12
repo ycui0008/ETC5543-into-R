@@ -1,7 +1,10 @@
-q4 <- readRDS("questions-ui/q-004.rds")
+# q4 <- readRDS("questions-ui/q-004.rds")
 # q5 <- readRDS("questions-ui/q-005.rds")
 # q6 <- readRDS("questions-ui/q-006.rds")
-
+# for(i in 4) {
+# source("questions/q-004.R")
+# }
+source("questions/q-004.R")
 
 tab04 <- tabPanel("4. Colour or Shape",
          includeHTML("Colour.html"),
@@ -12,5 +15,7 @@ tab04 <- tabPanel("4. Colour or Shape",
          p("Here, we use colour to represent the types of engine. 0 is V-shaped engine, while 1 is straight engine."),
          hr(),
          h3("Simple exercises"),
+         # q4
+         # source("questions/q-004.R")
          q4
          )

@@ -79,7 +79,9 @@ who_covid %>%
                           name == "United Kingdom" ~ "UK",
                           TRUE ~ name))
 
-
+for(i in 1:3) {
+  sprintf("questions/q-%.3d.R", i)
+}
 
 
 # world bank GPD data -----------------------------------------------------
@@ -87,3 +89,8 @@ who_covid %>%
 url <- "https://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv"
 
 GDP <- read_csv(url)
+
+
+for(i in 1:3) {
+  cat(paste0("questions-ui/q-",stringr::str_pad(i, 3, side = "left", pad = "0"), ".rds"))
+}

@@ -1,4 +1,4 @@
-source(here::here("questions/pkgs.R"))
+source("questions/pkgs.R")
 
 q2entry <- "
 
@@ -18,7 +18,7 @@ ggplot(data = head(diamonds,1000), aes(x = carat, y = price)) +
 ```
 "
 
-question <- tagList(
+q2 <- tagList(
   h4("Make a simple plot."),
   p(strong("Q2: "), "Make a plot depicting price against carat. Use scatterplot (fill in the blanks)."),
   p("Conventionally speaking, Vertical axis (y) ",
@@ -37,4 +37,4 @@ question <- tagList(
   hr()
 )
 
-saveRDS(question, here::here("test/questions-ui/q-002.rds"))
+# saveRDS(question, here::here("test/questions-ui/q-002.rds"))

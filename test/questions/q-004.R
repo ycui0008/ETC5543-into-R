@@ -1,4 +1,4 @@
-source(here::here("questions/pkgs.R"))
+source("questions/pkgs.R")
 
 q4entry <- "
 
@@ -20,7 +20,7 @@ ggplot(data = mtcars, aes(x = mpg, y = hp, colour = wt)) +
 ```
 "
 
-question <- tagList(
+q4 <- tagList(
   p(strong("Q4: "),"Make a plot depicting hp against mpg and use colour to represent wt. Use scatterplot (fill in the blanks)."),
 
 
@@ -38,5 +38,5 @@ question <- tagList(
   hr()
 )
 
-saveRDS(question, here::here("test/questions-ui/q-004.rds"))
+# saveRDS(question, here::here("test/questions-ui/q-004.rds"))
 

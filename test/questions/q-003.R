@@ -1,4 +1,4 @@
-source(here::here("questions/pkgs.R"))
+source("questions/pkgs.R")
 
 q3entry <- "
 
@@ -20,7 +20,7 @@ ggplot(data = head(diamonds,1000), aes(x = cut, y = carat)) +
 ```
 "
 
-question <- tagList(
+q3 <- tagList(
   h5(strong("Note: "), "now, we are only dealing with numeric variables; let's try to plot character variables."),
   p(strong("Q3: "), "Make a plot depicting carat against cut Use scatterplot (fill in the blanks)."),
 
@@ -48,4 +48,4 @@ question <- tagList(
 )
 
 
-saveRDS(question, here::here("test/questions-ui/q-003.rds"))
+# saveRDS(question, here::here("test/questions-ui/q-003.rds"))
