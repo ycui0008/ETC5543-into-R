@@ -99,4 +99,3 @@ GDP <- read_csv(here::here("test/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_3052522.csv"),
 
 names(GDP)[-1] <- substring(names(GDP)[-1], 2)
 
-GDP %>% ggplot
