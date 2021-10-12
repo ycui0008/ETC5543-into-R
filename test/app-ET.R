@@ -37,6 +37,7 @@ for(i in 1:4) {
 score_q1 <- 0
 score_q2 <- 0
 score_q3 <- 0
+score_q4 <- 0
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -235,8 +236,7 @@ server <- function(input, output) {
     # Colour section ---
 
     output$sccode1 <- renderPrint({
-        cat(paste("mtcars %>% ",
-                  "    ggplot(aes(x = cyl, y = hp, colour = factor(vs))) +",
+        cat(paste("ggplot(data = mtcars, aes(x = cyl, y = hp, colour = factor(vs))) +",
                   "    geom_point()",
                   sep = '\n'))
     })
@@ -250,6 +250,38 @@ server <- function(input, output) {
             )) +
             geom_point()
     })
+
+
+    # Q4
+    output$q4output <- renderUI({
+        input$eval4
+        HTML(knitr::knit2html(text = isolate(input$Q4), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    # Q4: Sample plot2
+
+    output$q4compare <- renderUI({
+        input$eval4
+        if (input$Q4 == q4sol) {
+            score_q4 <<- 1
+            "Success"
+        } else {
+            score_q4 <<- 0
+            "Wrong"
+        }
+    })
+
+    observeEvent(input$btn5, {
+        toggle('pSolution3')
+        output$pSol3 <- renderPlot({
+            mtcars %>%
+                ggplot(aes(x = mpg, y = hp, colour = wt)) +
+                geom_point()
+        })
+    })
+
+
+
 
 }
 

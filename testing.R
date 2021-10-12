@@ -58,3 +58,7 @@ mtcars %>%
 mtcars %>%
   ggplot(aes(x = cyl, y = hp, colour = factor(vs))) +
   geom_point()
+
+mtcars %>%
+  ggplot(aes(x = mpg, y = hp, colour = wt)) +
+  geom_point()
