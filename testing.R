@@ -67,3 +67,23 @@ mtcars %>%
 faithfuld
 ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
   geom_raster()
+
+world <- map_data('world')
+
+world %>%
+  filter(region == "USA")
+
+
+who_covid %>%
+  mutate(name = case_when(name == "United States of America" ~ "USA",
+                          name == "United Kingdom" ~ "UK",
+                          TRUE ~ name))
+
+
+
+
+# world bank GPD data -----------------------------------------------------
+
+url <- "https://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv"
+
+GDP <- read_csv(url)

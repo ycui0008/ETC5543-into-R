@@ -16,6 +16,7 @@ library(shinyjs)
 library(gradethis)
 library(skimr)
 library(shinyAce)
+library(dplyr)
 
 url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 
@@ -29,6 +30,18 @@ who_covid <- read_csv(url) %>%
         deaths_cumulative_total,
         deaths_cumulative_total_per_100000_population
     )
+
+world <- map_data('world')
+
+covid <-
+    mutate(who_covid, name = case_when(name == "United States of America" ~ "USA",
+                                       name == "United Kingdom" ~ "UK",
+                                       TRUE ~ name))
+
+covid_map <- left_join(covid[-1,], world, by = c("name" = "region"))
+
+
+# load tab sections
 
 for(i in 1:5) {
     source(sprintf("sections/tab-%.2d.R", i))
@@ -145,13 +158,13 @@ server <- function(input, output) {
 
     output$q2compare <- renderUI({
         input$eval2
-        if (input$Q2 == q2sol) {
+        isolate(if (input$Q2 == q2sol) {
             score_q2 <<- 1
             "Success"
         } else {
             score_q2 <<- 0
             "Wrong"
-        }
+        })
     })
 
     # Q2: Sample plot1

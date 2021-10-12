@@ -1,6 +1,6 @@
 q4 <- readRDS("questions-ui/q-004.rds")
-# q2 <- readRDS("questions-ui/q-002.rds")
-# q3 <- readRDS("questions-ui/q-003.rds")
+# q5 <- readRDS("questions-ui/q-005.rds")
+# q6 <- readRDS("questions-ui/q-006.rds")
 
 
 tab04 <- tabPanel("4. Colour or Shape",
