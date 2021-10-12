@@ -62,3 +62,8 @@ mtcars %>%
 mtcars %>%
   ggplot(aes(x = mpg, y = hp, colour = wt)) +
   geom_point()
+
+
+faithfuld
+ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
+  geom_raster()

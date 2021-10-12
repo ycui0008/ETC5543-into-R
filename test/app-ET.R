@@ -30,7 +30,7 @@ who_covid <- read_csv(url) %>%
         deaths_cumulative_total_per_100000_population
     )
 
-for(i in 1:4) {
+for(i in 1:5) {
     source(sprintf("sections/tab-%.2d.R", i))
 }
 
@@ -51,8 +51,8 @@ ui <- fluidPage(
         tab02,
         tab03,
         tab04,
-        "-----",
-        tabPanel("Component 5")
+        tab05
+
     )
 )
 

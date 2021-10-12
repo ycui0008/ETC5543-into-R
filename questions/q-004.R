@@ -21,7 +21,7 @@ ggplot(data = mtcars, aes(x = mpg, y = hp, colour = wt)) +
 "
 
 question <- tagList(
-  p(strong("Q4: "),"Make a plot depicting hp against mpg and colouring wt. Use scatterplot (fill in the blanks)."),
+  p(strong("Q4: "),"Make a plot depicting hp against mpg and use colour to represent wt. Use scatterplot (fill in the blanks)."),
 
 
   # User enter code - UI
