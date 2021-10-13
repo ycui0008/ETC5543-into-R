@@ -380,6 +380,7 @@ server <- function(input, output) {
             title = ModalTitle,
             footer = ModalFooter
         ))
+        sum_score <- NULL
     })
 
 
@@ -407,6 +408,7 @@ server <- function(input, output) {
             title = title,
             paste0("You get ",as.character(sum_score), "/3 in this section.")
         ))
+        sum_score <- NULL
     })
 
     # Q7
@@ -418,15 +420,25 @@ server <- function(input, output) {
 
     # Q7: Sample plot2
 
-    output$q7compare <- renderUI({
-        input$eval7
+    observeEvent(input$eval7, {
         if (input$Q7 == q7sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
             score_q7 <<- 1
-            "Success"
+
         } else {
             score_q7 <<- 0
-            "Wrong"
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
         }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
     })
 
     observeEvent(input$btn8, {
@@ -441,7 +453,7 @@ server <- function(input, output) {
     # show sum of score for tab5
 
     observeEvent(input$score_btn_3,{
-        sum_score <- score_7
+        sum_score <- score_q7
         if (sum_score == 3) {
             title = "Congraduation!"
         } else {
@@ -453,6 +465,7 @@ server <- function(input, output) {
             paste0("You get ",as.character(sum_score), "/3 in this section.")
 
         ))
+        sum_score <- NULL
     })
 
 

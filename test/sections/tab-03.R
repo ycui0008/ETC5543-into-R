@@ -22,5 +22,5 @@ tab03 <- tabPanel("3: Simple exercises",
          q2,
          # Q3: carat against cut
          q3,
-         actionButton("score_btn_1", "Show total score in this section")
+         actionButton("score_btn_1", "Show your scores in this section")
          )
