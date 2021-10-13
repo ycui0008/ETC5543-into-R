@@ -13,7 +13,7 @@ library(readr) # Import
 library(ggplot2) # Import
 library(magrittr) # Import
 library(shinyjs)
-library(gradethis)
+library(tidyr)
 library(skimr)
 library(shinyAce)
 library(dplyr)
@@ -47,10 +47,15 @@ for(i in 1:5) {
     source(sprintf("sections/tab-%.2d.R", i))
 }
 
+n_question <- 4
+
+# score <- rep(0, n_question)
+
 score_q1 <- 0
 score_q2 <- 0
 score_q3 <- 0
 score_q4 <- 0
+score_q7 <- 0
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -279,19 +284,6 @@ server <- function(input, output) {
         ))
     })
 
-    # output$q3compare <- renderUI({
-    #     input$eval3
-    #     if (input$Q3 == q3sol) {
-    #         score_q3 <<- 1
-    #         "Success"
-    #     } else {
-    #         score_q3 <<- 0
-    #         "Wrong"
-    #     }
-    # })
-
-
-
     # Code: jitter and boxplot for diamonds
 
     output$jittercode <- renderPrint({
@@ -322,10 +314,18 @@ server <- function(input, output) {
 
     observeEvent(input$score_btn_1,{
         sum_score <- score_q1 + score_q2 + score_q3
+        if (sum_score == 3) {
+            title = "Congraduation!"
+        } else {
+            title = "Keep working!"
+        }
 
         showModal(modalDialog(
-            title = paste0("You get ",as.character(sum_score), "/3 in this section.")
+            title = title,
+            paste0("You get ",as.character(sum_score), "/3 in this section.")
+
         ))
+        sum_score <- NULL
     })
 
     # output$sum_score_tab3<- renderUI({
@@ -361,16 +361,27 @@ server <- function(input, output) {
 
     # Q4: Sample plot2
 
-    output$q4compare <- renderUI({
-        input$eval4
+    observeEvent(input$eval4, {
         if (input$Q4 == q4sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
             score_q4 <<- 1
-            "Success"
+
         } else {
             score_q4 <<- 0
-            "Wrong"
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
         }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
     })
+
 
     observeEvent(input$btn5, {
         toggle('pSolution3')
@@ -383,11 +394,65 @@ server <- function(input, output) {
 
 
     # show sum of score for tab4
+    observeEvent(input$score_btn_2,{
+        sum_score <- score_q4
 
-    output$sum_score_tab4<- renderUI({
-        input$score_btn_2
-        sum_score <- score_q4 + score_q5 + score_q6
-        as.character(sum_score)
+        if (sum_score == 3) {
+            title = "Congraduation!"
+        } else {
+            title = "Keep working!"
+        }
+
+        showModal(modalDialog(
+            title = title,
+            paste0("You get ",as.character(sum_score), "/3 in this section.")
+        ))
+    })
+
+    # Q7
+
+    output$q7output <- renderUI({
+        input$eval7
+        HTML(knitr::knit2html(text = isolate(input$Q7), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    # Q7: Sample plot2
+
+    output$q7compare <- renderUI({
+        input$eval7
+        if (input$Q7 == q7sol) {
+            score_q7 <<- 1
+            "Success"
+        } else {
+            score_q7 <<- 0
+            "Wrong"
+        }
+    })
+
+    observeEvent(input$btn8, {
+        toggle('pSolution6')
+        output$pSol6 <- renderPlot({
+            ggplot(data = covid_map, aes(x = long, y = lat, group = group, fill = deaths_cumulative_total)) +
+                geom_polygon(colour = 'white') +
+                coord_quickmap()
+        })
+    })
+
+    # show sum of score for tab5
+
+    observeEvent(input$score_btn_3,{
+        sum_score <- score_7
+        if (sum_score == 3) {
+            title = "Congraduation!"
+        } else {
+            title = "Keep working!"
+        }
+
+        showModal(modalDialog(
+            title = title,
+            paste0("You get ",as.character(sum_score), "/3 in this section.")
+
+        ))
     })
 
 

@@ -28,7 +28,7 @@ q3 <- tagList(
   aceEditor("Q3", mode = "r", value = q3entry),
   actionButton("eval3", "Submit"),
   shinycssloaders::withSpinner(htmlOutput("q3output")),
-  htmlOutput("q3compare"),
+
 
   actionButton("btn4", "Solution"),
   hidden(div(id = "pSolution2",

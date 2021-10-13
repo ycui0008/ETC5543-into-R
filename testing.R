@@ -99,3 +99,14 @@ GDP <- read_csv(here::here("test/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_3052522.csv"),
 
 names(GDP)[-1] <- substring(names(GDP)[-1], 2)
 
+GDP_clean <- GDP %>%
+  pivot_longer(cols = c(2:ncol(GDP)), names_to = "year", values_to = "GDP") %>%
+  mutate(year = as.numeric(year))
+
+GDP_clean %>%
+  left_join(world, by = c("country_name" = "region")) %>%
+  filter(year == 2020) %>%
+  ggplot(aes(long, lat, group = group, fill = GDP)) +
+  geom_polygon(colour = 'white') +
+  coord_quickmap()
+

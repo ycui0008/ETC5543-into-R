@@ -28,7 +28,7 @@ q4 <- tagList(
   aceEditor("Q4", mode = "r", value = q4entry),
   actionButton("eval4", "Submit"),
   shinycssloaders::withSpinner(htmlOutput("q4output")),
-  htmlOutput("q4compare"),
+
 
   br(),
   br(),

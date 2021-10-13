@@ -16,6 +16,6 @@ tab04 <- tabPanel("4. Colour or Shape",
          hr(),
          h3("Simple exercises"),
          # q4
-         # source("questions/q-004.R")
-         q4
+         q4,
+         actionButton("score_btn_2", "Show total score in this section")
          )
