@@ -56,7 +56,7 @@ top3_txhousing <- txhousing %>%
 
 # load tab sections
 
-for(i in 1:5) {
+for(i in 1:6) {
     source(sprintf("sections/tab-%.2d.R", i))
 }
 
@@ -67,6 +67,7 @@ score_q1 <- 0
 score_q2 <- 0
 score_q3 <- 0
 score_q4 <- 0
+score_q5 <- 0
 score_q5 <- 0
 score_q7 <- 0
 
@@ -82,7 +83,8 @@ ui <- fluidPage(
         tab02,
         tab03,
         tab04,
-        tab05
+        tab05,
+        tab06
 
     )
 )
@@ -476,6 +478,49 @@ server <- function(input, output) {
             paste0("You get ",as.character(sum_score), "/2 in this section.")
         ))
         sum_score <- NULL
+    })
+
+    # Q6
+    output$q6output <- renderUI({
+        input$eval6
+        HTML(knitr::knit2html(text = isolate(input$Q6), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    # Q6: Sample plot2
+
+    observeEvent(input$eval6, {
+        if (input$Q6 == q6sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
+            score_q6 <<- 1
+
+        } else {
+            score_q6 <<- 0
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
+        }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
+        sum_score <- NULL
+    })
+
+
+    observeEvent(input$btn7, {
+        toggle('pSolution5')
+        output$pSol5 <- renderPlot({
+            mtcars %>%
+                ggplot(aes(x = cyl, y = hp)) +
+                geom_point() +
+                labs(title = "Relationship between Gross horsepower and Number of Cylinders for 32 automobiles in 1974",
+                     x = "Number of Cylinders",
+                     y = "Gross horsepower")
+        })
     })
 
     # Q7

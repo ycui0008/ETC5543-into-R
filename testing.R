@@ -56,8 +56,11 @@ mtcars %>%
   geom_point()
 
 mtcars %>%
-  ggplot(aes(x = cyl, y = hp, colour = factor(vs))) +
-  geom_point()
+  ggplot(aes(x = cyl, y = hp)) +
+  geom_point() +
+  labs(title = "Relationship between Gross horsepower and Number of Cylinders for 32 automobiles in 1974",
+       x = "Number of Cylinders",
+       y = "Gross horsepower")
 
 mtcars %>%
   ggplot(aes(x = mpg, y = hp, colour = wt)) +

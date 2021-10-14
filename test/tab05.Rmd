@@ -3,96 +3,44 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
+knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
-library(tidyverse)
+library(ggplot2)
+library(dplyr)
 ```
 
-### Polygon(`geom_polygon()`) is a simple way to draw maps -- it draws boundaries for different regions.
+### A good plot must have labels for its x- and y-axis
 
-#### Step 1: get map data
-
-Use `ggplot2::map_data()` to get the wanted map data.
+After you draw a plot, such as the plot below.
 
 ```{r}
-# install.packages('map') # map package is required
-world <- map_data('world')
-
-head(world)
+diamonds %>%
+  ggplot(aes(x = carat, y = price)) +
+  geom_point(alpha = 0.5)
 ```
 
-We can see what map data looks like. `group` is 
+Readers can be confused because the plot does not have any title or labels.
 
-#### Step 2: draw the map
+They may have some questions about the plot:
+
+* What is this plot about?
+* What are x-axis measures?
+* Which currency is used for price measurement?
+
+So, if we add title and labels to the plot, is the plot more readable? You can know more about the `labs()` by entering `?labs()` in your R console.
 
 ```{r}
-ggplot(world, aes(x = long, y = lat, group = group)) +
-  geom_polygon(fill = 'white', # This is the colour within countries' boundaries
-               colour = 'grey' # This is background colour
-               ) + 
-  coord_quickmap() # This is map projections, there are many other types of map projections
+diamonds %>%
+  ggplot(aes(x = carat, y = price)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Prices of round cut diamonds", # plot title
+       x = "Weight of the diamond (carat)", # x-axis label
+       y = "Price (USD)") # y-axis label
 ```
 
-##### What if we use `geom_point()`, instead?
 
-```{r}
-ggplot(world, aes(long, lat, group = group)) +
-  geom_point(size = 0.25) + 
-  coord_quickmap() 
-```
-
-Now, we can see each country's boundaries are plotted as points. 
-
-### Let's see what we can do for `who_covid` data
-
-`who_covid` records COVID-19 cases and deaths in the countries of the world. Try to use `?who_covid` to read more information about the data.
-
-```{r}
-
-url <- 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
-
-who_covid <- read_csv(url) %>%
-    janitor::clean_names() %>%
-    dplyr::select(
-        name,
-        who_region,
-        cases_cumulative_total,
-        cases_cumulative_total_per_100000_population,
-        deaths_cumulative_total,
-        deaths_cumulative_total_per_100000_population
-    )
-# all codes above will be replaced once the shiny is in the package
+### Let's have one simple exercise, and remember to give your future plots labels and titles
 
 
-head(who_covid)
-```
-
-Before we using `geom_polygon()` to draw a map, we need to join `world` data to `who_covid` data, because originally `who_covid` data does not contain countries' map data. 
-
-First, rename USA and UK, because in world data United States of America is called USA and United Kingdom is called UK.
-
-```{r}
-covid <-
-  mutate(who_covid, name = case_when(name == "United States of America" ~ "USA", 
-                          name == "United Kingdom" ~ "UK",
-                          TRUE ~ name))
-```
-
-Second, merge two data set into one data set.
-
-```{r}
-covid_map <- left_join(covid[-1,], # -1 is to deselect Global data
-          world,      
-          by = c("name" = "region") # select name and region to join by
-          )
-```
-
-Finally, draw the map.
-
-```{r}
-ggplot(data = covid_map, aes(x = long, y = lat, group = group, fill = cases_cumulative_total)) + 
-  geom_polygon(colour = 'white') + 
-  coord_quickmap()
-```
-
+Try to fill in the blanks.

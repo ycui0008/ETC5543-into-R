@@ -1,11 +1,8 @@
-# q7 <- readRDS("questions-ui/q-007.rds")
+source("questions/q-006.R")
 
-source("questions/q-007.R")
-
-
-tab05 <- tabPanel("5. Introduction of Polygon",
+tab05 <- tabPanel("4. Name your plot",
                   includeHTML("tab05.html"),
-                  h3("Now, let try two simple exercises."),
-                  q7,
-                  actionButton("score_btn_3", "Show your scores in this section")
-                  )
+                  q6
+
+
+)
