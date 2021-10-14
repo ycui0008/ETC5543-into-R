@@ -54,6 +54,20 @@ top3_txhousing <- txhousing %>%
     group_by(city, month) %>%
     summarise(tot_sales = sum(sales))
 
+# GDP data
+GDP <- read_csv("API_NY.GDP.PCAP.CD_DS2_en_csv_v2_3052522.csv", skip = 4,
+                col_select = list(`Country Name`, `1960`:`2020`)) %>%
+    janitor::clean_names() %>%
+    mutate(country_name = case_when(country_name == "United Kingdom" ~ "UK",
+                                    country_name == "United States" ~ "USA",
+                                    TRUE ~ country_name))
+
+names(GDP)[-1] <- substring(names(GDP)[-1], 2)
+
+GDP_clean <- GDP %>%
+    pivot_longer(cols = c(2:ncol(GDP)), names_to = "year", values_to = "GDP") %>%
+    mutate(year = as.numeric(year))
+
 # load tab sections
 
 for(i in 1:6) {
@@ -69,6 +83,7 @@ score_q3 <- 0
 score_q4 <- 0
 score_q5 <- 0
 score_q5 <- 0
+score_q6 <- 0
 score_q7 <- 0
 
 # Define UI for application that draws a histogram
@@ -523,6 +538,23 @@ server <- function(input, output) {
         })
     })
 
+    # show sum of score for tab4
+    observeEvent(input$score_btn_3,{
+        sum_score <- score_q6
+
+        if (sum_score == 1) {
+            title = "Congraduation!"
+        } else {
+            title = "Keep working!"
+        }
+
+        showModal(modalDialog(
+            title = title,
+            paste0("You get ",as.character(sum_score), "/1 in this section.")
+        ))
+        sum_score <- NULL
+    })
+
     # Q7
 
     output$q7output <- renderUI({
@@ -562,9 +594,9 @@ server <- function(input, output) {
         })
     })
 
-    # show sum of score for tab5
+    # show sum of score for tab6
 
-    observeEvent(input$score_btn_3,{
+    observeEvent(input$score_btn_4,{
         sum_score <- score_q7
         if (sum_score == 3) {
             title = "Congraduation!"
