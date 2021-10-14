@@ -66,7 +66,9 @@ names(GDP)[-1] <- substring(names(GDP)[-1], 2)
 
 GDP_clean <- GDP %>%
     pivot_longer(cols = c(2:ncol(GDP)), names_to = "year", values_to = "GDP") %>%
-    mutate(year = as.numeric(year))
+    mutate(year = as.numeric(year)) %>%
+    left_join(world, by = c("country_name" = "region")) %>%
+    filter(year == 2020)
 
 # load tab sections
 
@@ -594,10 +596,49 @@ server <- function(input, output) {
         })
     })
 
+
+    # Q8
+    output$q7output <- renderUI({
+        input$eval7
+        HTML(knitr::knit2html(text = isolate(input$Q7), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    # Q8: Sample plot2
+
+    observeEvent(input$eval8, {
+        if (input$Q8 == q8sol) {
+            ModalTitle = "Success"
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
+            score_q8 <<- 1
+
+        } else {
+            score_q8 <<- 0
+            ModalTitle = "Wrong"
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
+        }
+        showModal(modalDialog(
+            title = ModalTitle,
+            footer = ModalFooter
+        ))
+    })
+
+    observeEvent(input$btn9, {
+        toggle('pSolution7')
+        output$pSol7 <- renderPlot({
+            ggplot(GDP_clean, aes(long, lat, group = group, fill = GDP)) +
+                geom_polygon(colour = 'white') +
+                coord_quickmap()
+        })
+    })
+
     # show sum of score for tab6
 
     observeEvent(input$score_btn_4,{
-        sum_score <- score_q7
+        sum_score <- score_q7 +score_q8
         if (sum_score == 3) {
             title = "Congraduation!"
         } else {
@@ -606,7 +647,7 @@ server <- function(input, output) {
 
         showModal(modalDialog(
             title = title,
-            paste0("You get ",as.character(sum_score), "/3 in this section.")
+            paste0("You get ",as.character(sum_score), "/2 in this section.")
 
         ))
         sum_score <- NULL
