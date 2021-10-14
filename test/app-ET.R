@@ -40,6 +40,19 @@ covid <-
 
 covid_map <- left_join(covid[-1,], world, by = c("name" = "region"))
 
+# txhousing data
+top3_cities <- txhousing %>%
+    filter(year == 2000) %>% # filter out year 2000
+    group_by(city) %>%
+    summarise(tot_sales = sum(sales)) %>% # total sales in 2000
+    top_n(3) %>% # filter out top 3 cities
+    pull(city)
+
+
+top3_txhousing <- txhousing %>%
+    filter(year == 2000, city %in% top3_cities) %>% # filter out top 3 cities in 2000
+    group_by(city, month) %>%
+    summarise(tot_sales = sum(sales))
 
 # load tab sections
 
@@ -47,14 +60,14 @@ for(i in 1:5) {
     source(sprintf("sections/tab-%.2d.R", i))
 }
 
-n_question <- 4
 
-# score <- rep(0, n_question)
+
 
 score_q1 <- 0
 score_q2 <- 0
 score_q3 <- 0
 score_q4 <- 0
+score_q5 <- 0
 score_q7 <- 0
 
 # Define UI for application that draws a histogram
@@ -393,12 +406,66 @@ server <- function(input, output) {
         })
     })
 
+    # Q5
+    output$q5output <- renderUI({
+        input$eval5
+        HTML(knitr::knit2html(text = isolate(input$Q5), fragment.only = TRUE, quiet = TRUE))
+    })
+
+    # Q5: Sample plot2
+
+    observeEvent(input$eval5, {
+        if (input$Q5 == q5sol) {
+            ModalTitle = "Success"
+            text = NULL
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
+            score_q5 <<- 1
+
+        } else {
+            score_q5 <<- 0
+            ModalTitle = "Wrong"
+            text = "Try to use fill to replace colour."
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
+        }
+        showModal(modalDialog(
+            title = ModalTitle,
+            text,
+            footer = ModalFooter
+        ))
+        sum_score <- NULL
+    })
+
+
+    observeEvent(input$btn6, {
+        toggle('pSolution4')
+        output$pSol4 <- renderPlot({
+            top3_cities <- txhousing %>%
+                filter(year == 2000) %>% # filter out year 2000
+                group_by(city) %>%
+                summarise(tot_sales = sum(sales)) %>% # total sales in 2000
+                top_n(3) %>% # filter out top 3 cities
+                pull(city)
+
+
+            txhousing %>%
+                filter(year == 2000, city %in% top3_cities) %>%
+                group_by(city, month) %>%
+                summarise(tot_sales = sum(sales)) %>%
+                ggplot(aes(x = month, y = tot_sales, fill = city)) +
+                geom_col()
+        })
+    })
+
 
     # show sum of score for tab4
     observeEvent(input$score_btn_2,{
-        sum_score <- score_q4
+        sum_score <- score_q4 + score_q5
 
-        if (sum_score == 3) {
+        if (sum_score == 2) {
             title = "Congraduation!"
         } else {
             title = "Keep working!"
@@ -406,7 +473,7 @@ server <- function(input, output) {
 
         showModal(modalDialog(
             title = title,
-            paste0("You get ",as.character(sum_score), "/3 in this section.")
+            paste0("You get ",as.character(sum_score), "/2 in this section.")
         ))
         sum_score <- NULL
     })

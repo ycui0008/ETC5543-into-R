@@ -5,6 +5,7 @@
 # source("questions/q-004.R")
 # }
 source("questions/q-004.R")
+source("questions/q-005.R")
 
 tab04 <- tabPanel("4. Colour or Shape",
          includeHTML("Colour.html"),
@@ -17,5 +18,6 @@ tab04 <- tabPanel("4. Colour or Shape",
          h3("Simple exercises"),
          # q4
          q4,
+         q5,
          actionButton("score_btn_2", "Show your scores in this section")
          )

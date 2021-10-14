@@ -1,0 +1,32 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+library(dplyr)
+library(ggplot2)
+```
+
+For Q5, we will use `txhousing` data. For simplification, we only use top-3 sales cities in 2000.
+
+The chunk below is data wrangling part.
+
+```{r}
+top3_cities <- txhousing %>%
+  filter(year == 2000) %>% # filter out year 2000
+  group_by(city) %>% 
+  summarise(tot_sales = sum(sales)) %>% # total sales in 2000
+  top_n(3) %>% # filter out top 3 cities
+  pull(city)
+
+top3_txhousing <- txhousing %>% 
+  filter(year == 2000, city %in% top3_cities) %>% # filter out top 3 cities in 2000
+  group_by(city, month) %>% 
+  summarise(tot_sales = sum(sales)) # cauculate monthly total sales 
+
+head(top3_txhousing) # have a look at the data
+```
+

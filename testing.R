@@ -87,6 +87,24 @@ for(i in 1:3) {
   cat(paste0("questions-ui/q-",stringr::str_pad(i, 3, side = "left", pad = "0"), ".rds"))
 }
 
+
+# txhousing ---------------------------------------------------------------
+top3_cities <- txhousing %>%
+  filter(year == 2000) %>%
+  group_by(city) %>%
+  summarise(tot_sales = sum(sales)) %>%
+  arrange(-tot_sales) %>%
+  head(3) %>%
+  pull(city)
+
+
+txhousing %>%
+  filter(year == 2000, city %in% top3_cities) %>%
+  group_by(city, month) %>%
+  summarise(tot_sales = sum(sales)) %>%
+  ggplot(aes(x = month, y = tot_sales, fill = city)) +
+  geom_col()
+
 # world bank GPD data -----------------------------------------------------
 
 
