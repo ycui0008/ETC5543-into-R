@@ -1,0 +1,14 @@
+---
+title: "5543 Report - `ggplotIntro`"
+author: "Yuheng Cui"
+date: "10/16/2021"
+output: 
+  bookdown::pdf_document2:
+    toc: true
+    number_sections: true
+    fig_caption: true
+---
+
+
+# Introduction and Motivation
+
