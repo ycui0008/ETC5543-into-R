@@ -12,3 +12,6 @@ output:
 
 # Introduction and Motivation
 
+This report will introduce R package `ggplotIntro` and how I deveop the package. `ggplotIntro` Package is mainly used for new `ggplot` package learner. Targeted group is new R learner. New R learners are defined as people who never used R before and have little knowledge about programming. I understand the difficulties for beginners because I learned accounting for my bachelor degree and I still remember how I struggled when I started learning R.
+
+
