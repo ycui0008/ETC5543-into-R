@@ -26,11 +26,11 @@ q1 <- tagList(
 
 
 
-  br(),
-  br(),
-  actionButton("btn1", "Hint"),
-  hidden(div(id = "hint1",
-             verbatimTextOutput("ht1"))),
+  # br(),
+  # br(),
+  # actionButton("btn1", "Hint"),
+  # hidden(div(id = "hint1",
+  #            verbatimTextOutput("ht1"))),
   br(),
   br(),
   actionButton("btn2", "Solution"),

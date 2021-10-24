@@ -17,5 +17,8 @@ tab02 <- tabPanel("2: Simple example",
          p("Within ", em("aes()"),
            ", the x and y are standing for x-axis variable and y-axis variable, respectively."),
          p(em("geom_point()")," is used to create scatterplots."),
+         p(em("geom_jitter()")," is used to create jittered points."),
+         p(em("geom_boxplot()")," is used to create box plot."),
+         p(em("geom_line()")," is used to create line plots."),
          p("You can click the link below to check all types of", em("ggplot2"), "layers"),
          uiOutput("reference"))

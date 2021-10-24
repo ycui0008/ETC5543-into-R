@@ -181,6 +181,7 @@ server <- function(input, output) {
     observeEvent(input$eval1, {
         if (input$Q1 == q1sol) {
             ModalTitle = "Success"
+            ModalText = NULL
             ModalFooter = tagList(
                 modalButton("Keep going")
             )
@@ -189,12 +190,14 @@ server <- function(input, output) {
         } else {
             score_q1 <<- 0
             ModalTitle = "Wrong"
+            ModalText = "Hint: Try to use summary"
             ModalFooter = tagList(
                 modalButton("Retry")
             )
         }
         showModal(modalDialog(
             title = ModalTitle,
+            ModalText,
             footer = ModalFooter
         ))
 
