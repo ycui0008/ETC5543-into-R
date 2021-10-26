@@ -24,7 +24,7 @@ ggplot(GDP_clean, aes(long, lat, group = group, fill = GDP)) +
 
 
 q8 <- tagList(
-  p(strong("Q8: "), ("create a map that shows total deaths of each country.")),
+  p(strong("Q8: "), ("create a map that shows GDP of each country.")),
   # User enter code - UI
   aceEditor("Q8", mode = "r", value = q8entry),
   actionButton("eval8", "Submit"),

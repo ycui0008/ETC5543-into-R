@@ -1,0 +1,37 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE)
+library(tidyverse)
+```
+
+```{r}
+GDP <- read_csv("API_NY.GDP.PCAP.CD_DS2_en_csv_v2_3052522.csv", skip = 4,
+                col_select = list(`Country Name`, `1960`:`2020`)) %>%
+  janitor::clean_names() %>%
+  mutate(country_name = case_when(country_name == "United Kingdom" ~ "UK",
+                                  country_name == "United States" ~ "USA",
+                                  TRUE ~ country_name))
+
+names(GDP)[-1] <- substring(names(GDP)[-1], 2) 
+
+world <- map_data('world')
+
+GDP_clean <- GDP %>%
+  pivot_longer(cols = c(2:ncol(GDP)), names_to = "year", values_to = "GDP") %>%
+  mutate(year = as.numeric(year))
+```
+
+This is `GDP_clean` data.
+
+```{r}
+GDP_clean %>%
+  left_join(world, by = c("country_name" = "region")) %>%
+  filter(year == 2020) %>% 
+  tail()
+```
+

@@ -22,7 +22,7 @@ world <- map_data('world')
 head(world)
 ```
 
-We can see what map data looks like. `group` is 
+We can see what map data looks like. Different countries and regions have different `group` number. If you want to get map data other than **world**, try `?map_data`.
 
 #### Step 2: draw the map
 
