@@ -4,7 +4,7 @@ source("questions/q-007.R")
 source("questions/q-008.R")
 
 tab06 <- tabPanel("6. Introduction of Polygon",
-                  includeHTML("tab05.html"),
+                  includeHTML("tab06.html"),
                   h3("Now, let try two simple exercises."),
                   q7,
                   q8,
