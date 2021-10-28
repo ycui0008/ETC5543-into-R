@@ -236,10 +236,17 @@ knitr::include_graphics("screenshot/text issue 1.png")
 
 First, I tried to follow the structure of `dwexercise` package. But there are big difference between *shiny-prerendered Rmd file* and *shiny app*. If using *shiny-prerendered Rmd file*, with `learnr` package, it is very easy to create code chunks letting users fill the answers. If using  shiny app, the structure will be totally different, because *shiny-prerendered Rmd file* supports users to run code while *ui* and *server* are both required in shiny app. Ui input can be problematic because some types of input would cause errors in *server* part. For instance, Figure \@ref(fig:p2) was the first-version plan -- the questions provide multiple choices to learners. The advantage of this plan is easy to construct; the disadvantage are the sense of control being reduced and limited choices could limit learners thinking. 
 
-Enable user to enter code is one advantage of using shiny-prerendered Rmd file. Different coding style and space between variables and arguments can make the comparison difficult.
+The second version was to let learners enter code freely. This version was similar to [`dwexercise`](https://ebsmonash.shinyapps.io/ecssc2021/#section-what-is-r), but in shiny it was more complicated. If a user wants to enter and run code in basic shiny, there are one options -- `textInput`. But if using `textInput` it would generate two more problems. One way is to let users enter full code of ggplot. The main difficulty here is how to tell the right or wrong of the code. Different coding style and space between variables and arguments can make the comparison be difficult. 
 
-Gradethis
-visdiffr
+`gradethis`, `vdiffr` and `testthat` are three packages can make the comparison. `gradethis` is a package which is always used with `learnr`. It can compare learners' answers with solutions and gives messages to learners when answers are wrong. However, `gradethis` is compatible with shiny. 
+
+```{r p22, fig.cap="gradethis package", out.width = '100%'}
+knitr::include_graphics("screenshot/gradethis.png")
+```
+
+Next plan is to use `vdiffr` which is a `testthat` extension for monitoring the appearance of R plots. To use this package, solution plots should be saved, so later they can be used to make the comparison. Using `vdiffr` would make the package too large because of too many SVG files saved in `_snap()` folder. `testthat` is not a good option, either. It is too complicated in shiny.
+
+Learners must enter the code in one line if using `textInput`. This is a problem if the code is too long, such as in Polygon section. The sense of control is also reduced because learners can only know whether their answers are right or wrong. They don't know which part of the answer goes wrong. So, the project will not satisfying the goals of gamification and  cultivating good coding style. Finally, `shinyAce` solved all these problems. `shinyAce` can create a code chunk which is same as the code chunk in **R studio**. It enables users to enter and run code in shiny app. Thus, even the answer is wrong, learners can see the output, which is important because there are two types of wrong answers. One is syntax error, the other is using wrong arguments or wrong variables. This is a big disadvantage when using `textInput`. Only telling students that they are wrong could result in making students remember the right answers. Merely remembering "right answer" is harmful in learning programming. The plan is to make all exercises in the shiny app are fill-in-blanks style, and `shinyAce` is the simple way to fulfill the plan. Another reason of making fill-in-blanks exercises is relatively technical. As mentioned before, different coding style and space between variables and arguments can make the comparison be difficult. The fill-in-blanks questions are easy to make the comparison. 
 
 ## Pop-up windows
 
