@@ -31,7 +31,9 @@ Due to COVID-19, there is no companies needs interns now. First time I get in to
 
 ## Gamification
 
-In my thought, the `ggplotIntro` should be interesting. So, I studied how to make learning progress interesting. My supervisor and I both agreed that gamifying learning progress could be a good option. Educational games have been successfully used to teach a number of school subjects [@corbett2001cognitive]. As a video game lover and current R learner, I know that when a person receives positive feedback from learning/gaming, he/she is likely to be motivated and wants to learn/play more. So, the project must have a score system. A pop up window will send a congratulatory message when the user gives correct answer or send a message containing comforting words and tips on solving questions. I believe a learner will be confident when he/she got high scores in exercises.
+The `ggplotIntro` should be interesting and help new learner cultivate interests in R. Interest was recognised as an independent factor and a desired outcome in the process of learning [@schiefele1991interest]. @lepper1988motivational proposed four general ways to increase intrinsic motivation, two out of four could be satisfied through gamification -- promoting students' sense of control and providing challenging activities. In the shiny app, `shinyAce` editor provide similar environment as R studio, and the difficulty levels are increasing across sections.
+
+So, I studied how to make learning progress interesting. My supervisor and I both agreed that gamifying learning progress could be a good option. Educational games have been successfully used to teach a number of school subjects [@corbett2001cognitive]. When a person receives positive feedback from learning/gaming, he/she is likely to be motivated and wants to learn/play more. The game versions of scoreboard were much more enjoyable the normal version, and were more acceptable [@flatla2011calibration] So, the project must have a score system. A pop-up window will send a congratulatory message when the user gives correct answer or send a message containing comforting words and tips on solving questions.Pop-up window is feedback when learners submitting their answers, and the aim of pop-up windows is making people feel more ownership and purpose when engaging with tasks [@pavlus2010game]. I believe a learner will be confident when he/she got high scores in exercises. 
 
 ## Why choosing shiny app
 
@@ -57,7 +59,7 @@ knitr::include_graphics("screenshot/section 2.png")
 
 ### Third tab in the shiny app
 
-In third tab, I make up three very easy questions for learners. If learners read the first two tabs, they can complete all three questions in five minutes. The screenshot below shows the tab layout. The questions are all designed as fill-in-blanks style (Figure \@ref(fig:p3)). I believe this style of questions is the most acceptable questions for new learners. There are three reasons. First, this kind of questions is easy and won’t take too much time. Because this project focuses on beginner, it is not reasonable to make it very long and hard. If exercises are long, users would bother to try them; and if exercises are hard, it would make beginners lose confidence. Second, fill-in-blank questions are easier for me to make comparison to the solution. I will discuss this point later in the \@ref{Comparision} section . Third, fill-in-blanks questions can help new learners form a good coding style. When lines of code are extraordinarily long, good coding style and necessary comments are crucial. For writer him- or her- self, good coding style can make debug and review more easily. It is common that when we try to review our work which is done a few years or several months ago, we even don’t understand what we were doing at that time. So, good coding style and comments can help us remember. For other people who want to read the code, good coding style can make the code more readable. @spinellis2003reading mentioned “… programming usually is a team-based activity, and writing code that others can easily decipher has become a necessity.” So, good coding style can also ensure other team members to continue your works. 
+In third tab, I make up three very easy questions for learners. If learners read the first two tabs, they can complete all three questions in five minutes. The screenshot below shows the tab layout. The questions are all designed as fill-in-blanks style (Figure \@ref(fig:p3)). I believe this style of questions is the most acceptable questions for new learners. There are three reasons. First, this kind of questions is easy and won’t take too much time. Because this project focuses on beginner, it is not reasonable to make it very long and hard. If exercises are long, users would bother to try them; and if exercises are hard, it would make beginners lose confidence. Second, fill-in-blank questions are easier for me to make comparison to the solution. I will discuss this point later in the \@ref(Comparision) section . Third, fill-in-blanks questions can help new learners form a good coding style. When lines of code are extraordinarily long, good coding style and necessary comments are crucial. For writer him- or her- self, good coding style can make debug and review more easily. It is common that when we try to review our work which is done a few years or several months ago, we even don’t understand what we were doing at that time. So, good coding style and comments can help us remember. For other people who want to read the code, good coding style can make the code more readable. @spinellis2003reading mentioned “… programming usually is a team-based activity, and writing code that others can easily decipher has become a necessity.” So, good coding style can also ensure other team members to continue your works. 
 
 ```{r p3, fig.cap="Section 3 - Question 3 screenshot", out.width = '100%'}
 knitr::include_graphics("screenshot/section 3 Q3.png")
@@ -210,8 +212,58 @@ knitr::include_graphics("screenshot/solution output.png")
 ```
 
 
+# Challenges
+
+## Text display issue
+
+The first issue I met is part of the text in the shiny app does not display in right way. Two screenshots depict the issue. After I maximising the window of the shiny app, some paragraphs would be dislocated (Figure \@ref(fig:p20) and Figure \@ref(fig:p21)). Later, I found the reason is the issue of the column width in the shiny app – when I write too much text in shiny app, the text will find a way to fill the full column width.
+
+At first, I tried to set specific column width for each paragraph, but it did not work. Thanks for Mitch’s advice, I used `includeMd` and `includeHTML` to solve the problem. I learned that it is better not to include too much text in a shiny app. Too much text will make the shiny app unnecessarily long, and it is difficult to design pretty layout in the shiny app. For instance, in my shiny app, I include many screenshots and plots. I must create ui and sever to show those screenshots or plots. So, my workload increases and later if there are too much plots the loading speed of the shiny app will be slow. But if I use Md file or HTML file (generated by Rmd file), I can easily make the layout and draw plots. In addition, because HTML files are prerendered, reading HTML files is faster than generating plots in the shiny app. Also, `includeHTML` is just one line of code, it saves spaces and shortens the length of the shiny app.
+
+```{r p20, fig.cap="Text display - normal", out.width = '100%'}
+knitr::include_graphics("screenshot/text issue 1.png")
+```
+
+```{r p21, fig.cap="Text display - when maximising window ", out.width = '100%'}
+knitr::include_graphics("screenshot/text issue 1.png")
+```
 
 
+
+
+
+## Comparison to the solutions {#Comparision}
+
+First, I tried to follow the structure of `dwexercise` package. But there are big difference between *shiny-prerendered Rmd file* and *shiny app*. If using *shiny-prerendered Rmd file*, with `learnr` package, it is very easy to create code chunks letting users fill the answers. If using  shiny app, the structure will be totally different, because *shiny-prerendered Rmd file* supports users to run code while *ui* and *server* are both required in shiny app. Ui input can be problematic because some types of input would cause errors in *server* part. For instance, Figure \@ref(fig:p2) was the first-version plan -- the questions provide multiple choices to learners. The advantage of this plan is easy to construct; the disadvantage are the sense of control being reduced and limited choices could limit learners thinking. 
+
+Enable user to enter code is one advantage of using shiny-prerendered Rmd file. Different coding style and space between variables and arguments can make the comparison difficult.
+
+Gradethis
+visdiffr
+
+## Pop-up windows
+
+At first, I never considered about pop-up windows
+
+Then, **Hint** button  not interactive
+
+showModa
+modalDialog
+use if else function to make two different messages. Success and Wrong. If wrong, contain hint messages
+
+## Making up questions and finding data sets
+
+
+Who_covid from WHO
+GDP from World Bank
+Data wrangling 
+
+Questions
+Difficulty level,
+
+
+
+## Make the shiny app as package
 
 
 
