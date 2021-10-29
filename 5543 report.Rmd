@@ -250,15 +250,49 @@ Learners must enter the code in one line if using `textInput`. This is a problem
 
 ## Pop-up windows
 
-At first, I never considered about pop-up windows
+In early version of the shiny app, the plan was to create an UI similar to Figure \@ref(fig:p22). After a few days, as  Section \@ref(Comparison) mentioned, `gradethis`, `vdiffr` and `testthat` were not compatible with shiny. The next version of the plan was simpler than the first one -- each question has a solution plot, and let users use eyes to compare their answers to the solution. This plan was abandoned soon because the shiny app would be interactive no longer. It also reduce the level of gamification. In this version of plan, the scoreboard would no longer exist because the comparison to the solution was done by users instead of the shiny app. 
 
-Then, **Hint** button  not interactive
+Later, `shinyAce` and fill-in-blanks questions were determined as the final version of the questions in the shiny app. The pop-up windows are built through `showModal` and `modalDialog`. The first version of pop-up windows was simple. It only contained one-word message -- **Success** or **Wrong**. The second version differentiated the close buttons -- **Keep going** was for **Success** while **Retry** was for **Wrong**. In final version, **Hint** buttons were removed, and hint messages were merged in pop-up windows. It has **three** advantages. First, it would not show hints to learners before trying the exercises. Second, it makes the layout of the shiny app look tidier and smarter. In early version, for each question, there were three buttons: **Submit**, **Hint** and **Solution**. Learners could read the hints at any time. Now, **Hint** buttons no longer exist, and the hint messages will only available to learners when learners submit wrong answers (Figure \@ref(fig:p9)). Third, it reduces the length and complexity of the shiny script. Previously, in server part, there were 3-4 lines of code for hint message output; now, they were replaced by one line of code. In conclusion, pop-up windows increase the feeling of gamification and interaction, and also tidy the shiny script.
 
-showModa
-modalDialog
-use if else function to make two different messages. Success and Wrong. If wrong, contain hint messages
+Chunk below shows the latest version of shiny script. The score and hint message are merged in one function.
+
+```
+    observeEvent(input$eval8, {
+        if (input$Q8 == q8sol) {
+            ModalTitle = "Success"
+            ModalText = NULL
+            ModalFooter = tagList(
+                modalButton("Keep going")
+            )
+            score_q8 <<- 1 # Score
+
+        } else {
+            score_q8 <<- 0 # Score
+            ModalTitle = "Wrong"
+            ModalText = "Hint: see the solution to Q7 and previous example." # Hint message
+            ModalFooter = tagList(
+                modalButton("Retry")
+            )
+        }
+        showModal(modalDialog(
+            title = ModalTitle,
+            ModalText,
+            footer = ModalFooter
+        ))
+    })
+```
+
+
+## Modulising the shiny app through `source()`
+
+Previously, all sections were in `app.R` file. So, the `app.R` file was extremely long. It had three weaknesses. First, it took too much time when the developer wanted to make any changes in previous section because there were hundreds lines of code in `app.R` file. Second, it was unfriendly for debugging process. The debugging would be very difficult if the developer could not locate the wrongful code section. Third, the shiny app could be hardly maintained and further developed in the future. 
+
+Modulising the shiny app has two advantages. First, it can shorten the length of main shiny script. Second, it is convenient for developer and others adding more questions and section in the future. However, during modulisation process, every time restarting R and running the shiny app, the error messages, such as "q2sol not found", appeared. At same time, the code chunks for exercises became blank boxes. The reason was all questions were saved as rds file and sourced by the shiny app, but exercise entries and solutions were excluded. The problems was solved through sourcing the whole question script.
+
 
 ## Making up questions and finding data sets
+
+It is tricky to find useful and interesting data sets and to make up questions based on the data.
 
 
 Who_covid from WHO
@@ -274,7 +308,7 @@ Difficulty level,
 
 
 
-
+## Some improvement
 
 
 
