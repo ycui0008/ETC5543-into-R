@@ -21,11 +21,8 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # Introduction
 
-This report will introduce R package `ggplotIntro` and how I develop the package. I choose R for three main reasons: first, R is free and open-sourced; second, people can do basic analyses without advanced coding or programming knowledges; third, also the most important point, R has hundreds of packages. The `ggplot2` package is a very useful and basic package. @myint2020comparison suggests that basic R and `ggplot2` can make plots rated similarly on many characteristics, but "... ggplot2 graphics were generally perceived by students to be slightly more clearer overall with respect to presentation of a scientific relationship". `ggplot2` is so representative because it shows how R can draw plots and it always the first package when a person starts learning R. If a new learner knows how to use `ggplot2` package, the person can do basic data plotting and analysis. `ggplotIntro` Package is mainly used for new `ggplot2` package learner. Targeted group is new R learner. New R learners are defined as people who never used R before and have little knowledge about programming. I understand the difficulties for new learners because I learned accounting for my bachelor degree and I still remember how I struggled when I started learning R -- those lines of code look like puzzles to me. For anyone who wants to learn programming languages, not only R, two most important characteristics are self-motivation and self-learning. Because R is open-sourced, there are many websites can teach how to learn R, such as *stackoverflow* and *RStudio Community*. For most of problems and issues, we can find answers by googling. But I know a realistic issue for most new learners -- learning programming, especially at beginning, it's boring and difficult. For myself, at beginning, I always copy and paste sample code and make minor changes to see how output changes. It takes me a while to understand how to read documentation of packages and functions. Most of university students do not have problems about self-learning, but self-motivation could be an issue. As I said, programming is boring at beginning, so new learners need motivation. Motivation can be internal or external. My project is aiming to provide **external motivation**.
+This report will introduce R package `ggplotIntro` and how the developer (author of the report) develop the package. The developer choose R for three main reasons: first, R is free and open-sourced; second, people can do basic analyses without advanced coding or programming knowledges; third, also the most important point, R has hundreds of packages. The `ggplot2` package is a very useful and basic package. @myint2020comparison suggests that basic R and `ggplot2` can make plots rated similarly on many characteristics, but "... ggplot2 graphics were generally perceived by students to be slightly more clearer overall with respect to presentation of a scientific relationship". `ggplot2` is so representative because it shows how R can draw plots and it always the first package when a person starts learning R. If a new learner knows how to use `ggplot2` package, the person can do basic data plotting and analysis. `ggplotIntro` Package is mainly used for new `ggplot2` package learner. Targeted group is new R learner. New R learners are defined as people who never used R before and have little knowledge about programming. The developer understand the difficulties for new learners because the developer learned accounting for bachelor degree and the developer still remember how I struggled when I started learning R -- those lines of code look like puzzles to me. For anyone who wants to learn programming languages, not only R, two most important characteristics are self-motivation and self-learning. Because R is open-sourced, there are many websites can teach how to learn R, such as *stackoverflow* and *RStudio Community*. For most of problems and issues, we can find answers by googling. But I know a realistic issue for most new learners -- learning programming, especially at beginning, it's boring and difficult. At beginning, people always copy and paste sample code and make minor changes to see how output changes. It takes people a while to understand how to read documentation of packages and functions. Most of university students do not have problems about self-learning, but self-motivation could be an issue. New learners need motivation, and motivation can be internal or external. The project is aiming to provide **external motivation** and to help new learners cultivate **intrinsic incentives**.
 
-## Context of the project
-
-Due to COVID-19, there is no companies needs interns now. First time I get in touch with my supervisor was in week 7. In first two meetings, we just have brief talk about the project and I drew a simple design sheet about the project. So, I started to work on the project since week 8. 
 
 # Design of the shiny app and how to use it
 
@@ -292,27 +289,54 @@ Modulising the shiny app has two advantages. First, it can shorten the length of
 
 ## Making up questions and finding data sets
 
-It is tricky to find useful and interesting data sets and to make up questions based on the data.
+In second, third and fourth sections, `mtcars` and `diamonds` data sets are used. There were two reasons of using these two data sets. First, new learners may be familiar with these two data sets because they are two commonly used data sets when people started learning R. Second, it saved time for developer. Due to the tight schedule, the developer did not have too much time for looking for new data. However, if the shiny app still used old data sets, it would be interesting no longer. But finding new data did not equal to finding a random data set. New data set must satisfy three requirements -- interesting, useful and timely. At same time, new data set must be proper for questions. Proper for questions means:
+
+* the observations of new data set should be proper -- not too large nor too small (if too large, it would take too much loading time; if too small, questions would be too easy) ;
+* the variables of new data set should be proper -- not too many nor too few (if too many, learners might spend too much time on questions; if too few, it was difficult to make questions based the data set);
+* new data set should be proper for different plot types.
 
 
-Who_covid from WHO
-GDP from World Bank
-Data wrangling 
+In conclusion, the developer needed to make trade-off between time and quality. Consequently, `ggplotIntro` package has two data sets -- `Who_covid` which was downloaded from WHO and `GDP` which was from World Bank (Both data sets are used in the shiny app). 
 
-Questions
-Difficulty level,
+It is also tricky to make up questions based on the data. The questions must balance difficulty level and meaningfulness. An example about meaningless question is drawing plot of time against date. After consideration, the developer decided to keep the questions based on `mtcars` and `diamonds` because the develop wanted to make a question bank (Section \@ref(Improvement)).
 
 
 
 ## Make the shiny app as package
 
+In [R packages book](https://r-pkgs.org/r.html), it pointed that "the first principle of making a package is that all R code goes in the `R/` directory" [@wickham2015r]. The main part of the shiny app is R script, and to transfer a shiny app to R package is put the R script of they shiny app into `R/`. Most online tutorial agrees because they are teaching how to transfer one simple shiny app script to packages. The simple shiny app refers to the shiny app contains R script only. 
+
+For `ggplotIntro`, the situation are different. Figure \@ref(fig:p23) shows how the shiny app looks like -- in app folder, there are two folders (i.e. `questions` and `sections`), and many Rmd and html files. `questions` and `sections` folders contains modulised questions and sections R file. 
+
+The first trial was to put everything in `R/`. An error message displayed, and the shiny app could not function at all. The reason was Rmd and html files were introduction paragraphs used in each section, which were not R code, thus, they could not be in `R/`. So, the tricky part is how to locate these files and folders.
+
+```{r p23, fig.cap="The app folder", out.width = '100%'}
+knitr::include_graphics("screenshot/app folder.png")
+```
+
+@wickham2015r mentioned "When a package is installed, everything in inst/ is copied into the top-level package directory. ... You are free to put anything you like in `inst/` with one caution: because `inst/` is copied into the top-level directory." Second trial was to put everything in `inst/`. An error message displayed because `launch_app()` could not launch the shiny app. Later, in the weekly meeting with developer's supervisor, the issue was found. The reason was the structure of the shiny app in `inst/` -- All contents must be in same `app/` within `inst/`. In third trial, the repo was `ggplotIntro/inst/app`. The third trial succeeded.
+
+The shiny app used two new data sets, and the data sets were built in the package. So, some code chunks were changed (Figure (\@ref(fig:p24)) gives one example). One advantage of making such changes was to tidy the shiny app layout. Another advantage was to cut off some data wrangling code chunks. The main focus of the project is to teach ggplot, so, the learners should not be distracted from ggplot by data wrangling.
 
 
-## Some improvement
+```{r p24, fig.cap="The app folder", out.width = '100%'}
+knitr::include_graphics("screenshot/transfer to package 1.png")
+```
+
+
+## Some improvement {#Improvement}
+
+At the time of writing the report, there were some improvements could and should be applied for the shiny app. First, build a question bank. The question bank has three benefits. First, give learners random question. @callender2009limited suggested students benefit a little from rereading and restudying coherent and complex learning material. If the shiny app gives same question to all learners every time, it is not beneficial for learners restudying and reusing the exercises within the shiny app. In addition, the shiny app would lose characteristics of gamification and fun soon. Promotion of long-term retention is substantial, and the learning material should allow students apply their knowledge in a variety of contexts [@ebersbach2020comparing]. Second, question bank can offer students question of different difficulty levels. One way of increasing intrinsic motivation is to give people challenging questions [@lepper1988motivational]. @alexander2013investigation also said that when playing games players enjoyed more, if the difficulty satisfied their gaming experience. @harrington2005s studied the reflection of students when they experiencing difficulties concluded that some students were likely to be highly task motivated, having capabilities to challenge a very competitive course. These students might be expected to have considerably better tolerance of discomfort but greater fears of failure; fear of failure may lead to increased anxiety and then to problems with tolerating these emotions [@@harrington2005s]. Thus, it is necessary and better to offer questions of proper difficulty levels to learners. Third, the questions in shiny app will be fresh and new to learners, so that the novelty will not wear off very soon.
+
+
+Second improvement is to make functions to tidy the shiny script. There are many duplicated code in the shiny script. For instance, for questions, solution part, pop-up window part, and user entry part are using similar structure of code, respectively. If similar code can be created as function, the shiny script can be tidier. Another advantage is that it is more convenient for question creation in the future.
 
 
 
 
+# Acknowledgement
+
+This project would not have been possible without Emi Tanaka, the project supervisor, and Mitchell O'Hara-Wild. They helped a lot when developing the shiny app. The developer would also like to thank Jessica Leung.
 
 # References
 
