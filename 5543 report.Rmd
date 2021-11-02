@@ -1,7 +1,7 @@
 ---
 title: "5543 Report - ggplotIntro"
 author: "Yuheng Cui"
-date: "10/16/2021"
+date: "`r Sys.Date()`"
 output: 
   bookdown::pdf_document2:
     number_sections: true
@@ -21,7 +21,22 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # Introduction
 
-This report will introduce R package `ggplotIntro` and how the developer (author of the report) develop the package. The developer choose R for three main reasons: first, R is free and open-sourced; second, people can do basic analyses without advanced coding or programming knowledges; third, also the most important point, R has hundreds of packages. The `ggplot2` package is a very useful and basic package. @myint2020comparison suggests that basic R and `ggplot2` can make plots rated similarly on many characteristics, but "... ggplot2 graphics were generally perceived by students to be slightly more clearer overall with respect to presentation of a scientific relationship". `ggplot2` is so representative because it shows how R can draw plots and it always the first package when a person starts learning R. If a new learner knows how to use `ggplot2` package, the person can do basic data plotting and analysis. `ggplotIntro` Package is mainly used for new `ggplot2` package learner. Targeted group is new R learner. New R learners are defined as people who never used R before and have little knowledge about programming. The developer understand the difficulties for new learners because the developer learned accounting for bachelor degree and the developer still remember how struggling when starting learning R -- those lines of code look like puzzles. For anyone who wants to learn programming languages, not only R, two most important characteristics are self-motivation and self-learning. Because R is open-sourced, there are many websites can teach how to learn R, such as *stackoverflow* and *RStudio Community*. For most of problems and issues, we can find answers by googling. But it is a common for most new learners -- learning programming, especially at beginning, it's boring and difficult. At beginning, people always copy and paste sample code and make minor changes to see how output changes. It takes people a while to understand how to read documentation of packages and functions. Most of university students do not have problems about self-learning, but self-motivation could be an issue. New learners need motivation, and motivation can be internal or external. The project is aiming to provide **external motivation** and to help new learners cultivate **intrinsic incentives**.
+[COMMENT: Start with motivating paragraph. Go BIG to small picture.]
+
+
+This report describes the development of the R [ADD citation to R] package `ggplotIntro`, its utility and how to use the package. There are three main reasons that R is used as outlined below:
+
+1. R is free and open-sourced; 
+2. people can do basic analyses without advanced coding or programming knowledges; 
+3. also the most important point, R has hundreds of packages. 
+
+The `ggplot2` package [ADD CITATION], built on the grammar of graphics [ADD CITATION to Wilkinson's Grammar of Graphics book], is a popular package that is widely used for data visualisation. @myint2020comparison suggests that base R and `ggplot2` can make plots rated similarly on many characteristics, but "... ggplot2 graphics were generally perceived by students to be slightly more clearer overall with respect to presentation of a scientific relationship". 
+
+[COMMENT: one paragraph = one idea.]
+
+`ggplotIntro` package is mainly used for new `ggplot2` package learner. This package targets a new R learner, i.e. people who only have basic R programming knowledge. The package incorporates my own experience as a struggling R beginner with little programming knowledge. 
+
+For anyone who wants to learn programming languages, not only R, two most important characteristics are self-motivation and self-learning. Because R is open-sourced, there are many websites can teach how to learn R, such as *stackoverflow* and *RStudio Community*. For most of problems and issues, we can find answers by googling. But it is a common for most new learners -- learning programming, especially at beginning, it's boring and difficult. At beginning, people always copy and paste sample code and make minor changes to see how output changes. It takes people a while to understand how to read documentation of packages and functions. Most of university students do not have problems about self-learning, but self-motivation could be an issue. New learners need motivation, and motivation can be internal or external. The project is aiming to provide **external motivation** and to help new learners cultivate **intrinsic incentives**.
 
 
 # Design of the shiny app and how to use it
