@@ -17,33 +17,45 @@ knitr::opts_chunk$set(echo = FALSE,
                       message = FALSE,
                       warning = FALSE,
                       fig.align = "center")
+
+ET <- function(comment) sprintf("\\textcolor{red}{ET: %s}", comment)
 ```
 
 # Introduction
 
-[COMMENT: Start with motivating paragraph. Go BIG to small picture.]
+`r ET("Start with motivating paragraph. Go BIG to small picture.")`
 
 
-This report describes the development of the R [ADD citation to R] package `ggplotIntro`, its utility and how to use the package. There are three main reasons that R is used as outlined below:
+This report describes the development of the R `r ET("[ADD citation to R]")` package `ggplotIntro`, its utility and how to use the package. There are three main reasons that R is used as outlined below:
 
 1. R is free and open-sourced; 
 2. people can do basic analyses without advanced coding or programming knowledges; 
 3. also the most important point, R has hundreds of packages. 
 
-The `ggplot2` package [ADD CITATION], built on the grammar of graphics [ADD CITATION to Wilkinson's Grammar of Graphics book], is a popular package that is widely used for data visualisation. @myint2020comparison suggests that base R and `ggplot2` can make plots rated similarly on many characteristics, but "... ggplot2 graphics were generally perceived by students to be slightly more clearer overall with respect to presentation of a scientific relationship". 
+`r ET("The narrative order is not flowing well. Start with explaining what R and grammar of graphics is, why do we care about it, talk about learning ggplot, and then finally what you are aiming to do.")`
 
-[COMMENT: one paragraph = one idea.]
+The `ggplot2` package `r ET("[ADD CITATION]")`, built on the grammar of graphics `r ET("[ADD CITATION to Wilkinson's Grammar of Graphics book]")`, is a popular package that is widely used for data visualisation. @myint2020comparison suggests that base R and `ggplot2` can make plots rated similarly on many characteristics, but "... ggplot2 graphics were generally perceived by students to be slightly more clearer overall with respect to presentation of a scientific relationship". 
+
+`r ET("One paragraph = one idea. Below I broke up the paragraph so one is about the package, other about learning.")`
 
 `ggplotIntro` package is mainly used for new `ggplot2` package learner. This package targets a new R learner, i.e. people who only have basic R programming knowledge. The package incorporates my own experience as a struggling R beginner with little programming knowledge. 
+
+`r ET("This paragraph should be about learning.")`
 
 For anyone who wants to learn programming languages, not only R, two most important characteristics are self-motivation and self-learning. Because R is open-sourced, there are many websites can teach how to learn R, such as *stackoverflow* and *RStudio Community*. For most of problems and issues, we can find answers by googling. But it is a common for most new learners -- learning programming, especially at beginning, it's boring and difficult. At beginning, people always copy and paste sample code and make minor changes to see how output changes. It takes people a while to understand how to read documentation of packages and functions. Most of university students do not have problems about self-learning, but self-motivation could be an issue. New learners need motivation, and motivation can be internal or external. The project is aiming to provide **external motivation** and to help new learners cultivate **intrinsic incentives**.
 
 
 # Design of the shiny app and how to use it
 
+`r ET("An opening paragraph to explain what is coming up is generally helpful to the reader.")`
+
 ## Gamification {#Gamification}
 
-The `ggplotIntro` should be interesting and help new learner cultivate interests in R. Interest was recognised as an independent factor and a desired outcome in the process of learning [@schiefele1991interest]. @lepper1988motivational proposed four general ways to increase intrinsic motivation, two out of four could be satisfied through gamification -- promoting students' sense of control and providing challenging activities. In the shiny app, `shinyAce` editor provide similar environment as R studio, and the difficulty levels are increasing across sections.
+`r ET("What is the main idea of this paragraph? The last sentence should help you answer this question generally.")`
+
+The `ggplotIntro` should be interesting and help new learner cultivate interests in R. Interest was recognised as an independent factor and a desired outcome in the process of learning [@schiefele1991interest]. @lepper1988motivational proposed four general ways to increase intrinsic motivation, two out of four `r ET("what does this number refer to?")` could be satisfied through gamification -- promoting students' sense of control and providing challenging activities. In the shiny app, `shinyAce` `r ET("[ADD CITATION]")` editor provide similar environment as RStudio, and the difficulty levels are increasing across sections.
+
+`r ET("What is the importance of the second sentence below? What value does it add to the report?")`
 
 So, before developing the shiny app, first thing was to study how to make learning progress interesting. My supervisor and I both agreed that gamifying learning progress could be a good option. Educational games have been successfully used to teach a number of school subjects [@corbett2001cognitive]. When a person receives positive feedback from learning/gaming, he/she is likely to be motivated and wants to learn/play more. The game versions of scoreboard were much more enjoyable the normal version, and were more acceptable [@flatla2011calibration] So, the project must have a score system. A pop-up window will send a congratulatory message when the user gives correct answer or send a message containing comforting words and tips on solving questions. @harrington2005s studied the reflection of students when they experiencing difficulties concluded that some students were likely to be highly task motivated, having capabilities to challenge a very competitive course. These students might be expected to have considerably better tolerance of discomfort but greater fears of failure; fear of failure may lead to increased anxiety and then to problems with tolerating these emotions [@@harrington2005s]. So, necessary comforting messages is needed. Pop-up window is also the feedback when learners submitting their answers, and the aim of pop-up windows is making people feel more ownership and purpose when engaging with tasks [@pavlus2010game]. Furthermore, the pop-up windows can fortify the feelings of interactivity because two-way communication was one factor of increasing interactivity [@@cheng2014roles] and pop-up windows is one type of two-way communication.
 
@@ -63,7 +75,7 @@ knitr::include_graphics("screenshot/section 1.png")
 
 ### Second tab in the shiny app
 
-In second tab, let learners play around with the code. Learners can change variables and plot types and see how the code and the plot change when they select different variables and plot types. I use `mtcars` as illustration example because it is a small data set with all numeric variables. One goal of this tab is to tell learners that it is not very hard to use `ggplot2` package to draw plots, and coding is very understandable and organised stuff. At the end of second tab, the section gives a link to `ggplot2` website. On the website, more `geom_` functions are introduced. The developer do not want to send too much contents to new learners because this shiny app is just a start point of learning R. Another goal of second tab is to show basic `ggplot2` code to learners. Knowing the basic code is enough to draw the plot. And this leads learners to third tab of the shiny app.
+In second tab, the learners can play around with the code. Learners can change variables and plot types and see how the code and the plot change when they select different variables and plot types. I use `mtcars` as illustration example because it is a small data set with all numeric variables. One goal of this tab is to tell learners that it is not very hard to use `ggplot2` package to draw plots, and coding is very understandable and organised stuff `r ET("Language is too colloquial.")`. At the end of second tab, the section gives a link to `ggplot2` website. On the website, more `geom_` functions are introduced. The developer do not want to send too much contents to new learners because this shiny app is just a start point of learning R. Another goal of second tab is to show basic `ggplot2` code to learners. Knowing the basic code is enough to draw the plot. And this leads learners to third tab of the shiny app.
 
 ```{r p2, fig.cap="Section 2 screenshot", out.width = '100%'}
 knitr::include_graphics("screenshot/section 2.png")
