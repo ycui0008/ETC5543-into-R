@@ -69,7 +69,7 @@ At first, the plan was to build a package like `learnr` -- use `shiny_prerendere
 
 Figure \@ref(fig:p1) is an overview of my project. Left hand side is the list of contents, and right hand side is the content. The list of contents is in this order because I believe it is a common process when people draw plots. In other words, when people get access to a data set and want to draw plots for analysis, first thing first is understanding the data – such as, dimension, variable types, and missing values of the data. The section introduce how to use `?` to read documentation of data sets built inside the packages. And use `summary()` to have an overview of the data set. This is the basis of data analysis and very crucial because it is unlikely to draw good plots if you know nothing about the data. The section also use screenshots of `mtcars` documentation and summary as examples in first tab.
 
-```{r p1, fig.cap="Section 1 screenshot", out.width = '100%'}
+```{r p1, fig.cap="Section 1 screenshot", out.width = '50%'}
 knitr::include_graphics("screenshot/section 1.png")
 ```
 
@@ -77,7 +77,7 @@ knitr::include_graphics("screenshot/section 1.png")
 
 In second tab, the learners can play around with the code. Learners can change variables and plot types and see how the code and the plot change when they select different variables and plot types. I use `mtcars` as illustration example because it is a small data set with all numeric variables. One goal of this tab is to tell learners that it is not very hard to use `ggplot2` package to draw plots, and coding is very understandable and organised stuff `r ET("Language is too colloquial.")`. At the end of second tab, the section gives a link to `ggplot2` website. On the website, more `geom_` functions are introduced. The developer do not want to send too much contents to new learners because this shiny app is just a start point of learning R. Another goal of second tab is to show basic `ggplot2` code to learners. Knowing the basic code is enough to draw the plot. And this leads learners to third tab of the shiny app.
 
-```{r p2, fig.cap="Section 2 screenshot", out.width = '100%'}
+```{r p2, fig.cap="Section 2 screenshot", out.width = '50%'}
 knitr::include_graphics("screenshot/section 2.png")
 ```
 
@@ -85,31 +85,31 @@ knitr::include_graphics("screenshot/section 2.png")
 
 In third tab, there are three very easy questions for learners. If learners read the first two tabs, they can complete all three questions in five minutes. The screenshot below shows the tab layout. The questions are all designed as fill-in-blanks style (Figure \@ref(fig:p3)). I believe this style of questions is the most acceptable questions for new learners. There are three reasons. First, this kind of questions is easy and won’t take too much time. Because this project focuses on beginner, it is not reasonable to make it very long and hard. If exercises are long, users would bother to try them; and if exercises are hard, it would make beginners lose confidence. Second, fill-in-blank questions are easier for me to make comparison to the solution. The report will discuss this point later in the \@ref(Comparision) section . Third, fill-in-blanks questions can help new learners form a good coding style. When lines of code are extraordinarily long, good coding style and necessary comments are crucial. For writer him- or her- self, good coding style can make debug and review more easily. It is common that when we try to review our work which is done a few years or several months ago, we even don’t understand what we were doing at that time. So, good coding style and comments can help us remember. For other people who want to read the code, good coding style can make the code more readable. @spinellis2003reading mentioned “… programming usually is a team-based activity, and writing code that others can easily decipher has become a necessity.” So, good coding style can also ensure other team members to continue your works. 
 
-```{r p3, fig.cap="Section 3 - Question 3 screenshot", out.width = '100%'}
+```{r p3, fig.cap="Section 3 - Question 3 screenshot", out.width = '50%'}
 knitr::include_graphics("screenshot/section 3 Q3.png")
 ```
 
 After complete the question, learners can click **Submit** button to see whether they are correct (Figure \@ref(fig:p3)). If they are wrong, pop-up window will be like Figure \@ref(fig:p4). It may contain a hint message. The hint message can guide learners to solve the question. When your answer is wrong, there will be no score added in the tab.
 
-```{r p4, fig.cap="When answer is wrong, pop-up window will be like this", out.width = '100%'}
+```{r p4, fig.cap="When answer is wrong, pop-up window will be like this", out.width = '50%'}
 knitr::include_graphics("screenshot/wrong 1.png")
 ```
 
 If they are correct, the pop-up window will be like Figure \@ref(fig:p5). And when the question is correctly answered, one score will be added.
 
-```{r p5, fig.cap="When answer is correct, pop-up window will be like this", out.width = '100%'}
+```{r p5, fig.cap="When answer is correct, pop-up window will be like this", out.width = '50%'}
 knitr::include_graphics("screenshot/success.png")
 ```
 
 Users can use the **Solution** button to see the solution to the question (Figure \@ref(fig:p6)).
 
-```{r p6, fig.cap="Solution", out.width = '100%'}
+```{r p6, fig.cap="Solution", out.width = '50%'}
 knitr::include_graphics("screenshot/solution sample.png")
 ```
 
 And users can click the below-the-folder button to check how many questions that they correctly answer in the section. Users will have two different pop-up dialog: upper window in Figure \@ref(fig:p7) will appear when users do not answer all questions correctly, lower window in Figure \@ref(fig:p7) will appear is when all questions are solved correctly. 
 
-```{r p7, fig.cap="Score system will show two types of outcome", out.width = '100%'}
+```{r p7, fig.cap="Score system will show two types of outcome", out.width = '50%'}
 knitr::include_graphics("screenshot/tot score.png")
 ```
 
@@ -130,14 +130,14 @@ In Q3, discuss a little about the weakness of scatter plots. And after that, bri
 In fourth section, it introduces how to use colours and shapes in data visualisation. @stone2006choosing suggests colour can enhance and clarify a presentation. 2D plots are more understandable than 3D plots. Colour and/or shape will be additional dimension(s) in the plot. In this section, I mainly introduce **colour**. Colour is more commonly used than shape in data visualisation. People’s eyes cannot detect the differences if there are more than four types of shapes in a plot. Colour can represent categorical variables, low to high numeric values, and diverging values. Colour can also represent variables with many levels. However, how to effectively use colour in data visualisation is a big topic, I can only introduce the basis of colour in data visualisation. At the end of introduction part, `mtcars` is as example to show learners how useful colour is in data visualisation (Figure \@ref(fig:p8)).
 
 
-```{r p8, fig.cap="Section 4 screenshot", out.width = '100%'}
+```{r p8, fig.cap="Section 4 screenshot", out.width = '50%'}
 knitr::include_graphics("screenshot/colourful mtcars.png")
 ```
 
 
 After introduction of colour and shapes, there are two simple exercises. Learners can differentiate `colour` and `fill` argument in ggplot when they finish Q4 and Q5. Q4 uses `mtcars` while Q5 uses `txhousing` in Q5. Q5 introduces bar chart. There are too many plot types, thus, only those most frequently used plot types are introduced in the shiny app. Bar chart, scatter plots, box plots, violin plots, and density plots are the types of plot which are commonly used in scientific communication [@matzen2020variable]. So, `geom_point()`, `geom_boxplot()` and `geom_bar()` are all introduced in the shiny app. Q4 and Q5 tells learners that `colour` should be used in scatter plot while `fill` should be used in bar plot. If `colour` is used in Q5, the pop-up window will tell him/her `fill` should be used here (Figure \@ref(fig:p9)). 
 
-```{r p9, fig.cap="The pop-up window for Q4", out.width = '100%'}
+```{r p9, fig.cap="The pop-up window for Q4", out.width = '50%'}
 knitr::include_graphics("screenshot/wrong 2.png")
 ```
 
@@ -162,33 +162,33 @@ ggplot(mtcars, aes(x = cyl, y = hp)) +
 
 The final section is harder than previous sections – it introduces Polygon. I struggle for a while because I am not sure whether I should introduce Polygon to new learners. When I learned Polygon, I thought it was difficult. But Polygon is a simple way to draw maps, and mapping is an important part in data visualisation – John Snow’s cholera map (Figure \@ref(fig:p10)) is well-known in data visualisation history. Mapping is always used in data-driven decision making process. For example, it can be used for political purpose -- mapping election results, and it was found as an efficient visualisation of election results [@ondrejka2016mapping].
 
-```{r p10, fig.cap="John Snow{{’}}s cholera map", out.width = '100%'}
+```{r p10, fig.cap="John Snow{{’}}s cholera map"}
 knitr::include_graphics("screenshot/j snow.png")
 ```
 
 In this section, it introduces two steps of drawing a map (Figure \@ref(fig:p11)). First step is “get map data” and second step is “draw the map”. Here, it introduces the simplest way to get map data. And in both steps, it gives comments to help learners understand the code. 
 
-```{r p11, fig.cap="Section 6 - Introduction", out.width = '100%'}
+```{r p11, fig.cap="Section 6 - Introduction", out.width = '50%'}
 knitr::include_graphics("screenshot/section 6 intro.png")
 ```
 
 The section also uses `geom_point()` to draw the map. The aim is to show why Polygon is preferable (Figure \@ref(fig:p12)).
 
-```{r p12, fig.cap="Section 6 - comparing scatter plot to polygon", out.width = '100%'}
+```{r p12, fig.cap="Section 6 - comparing scatter plot to polygon", out.width = '50%'}
 knitr::include_graphics("screenshot/section 6 scatterplot.png")
 ```
 
 Next, it uses `who_covid` data set and draw map for it. `who_covid`  (Figure \@ref(fig:p13)) is a data set of `ggplotIntro` package, data wrangling part will not appear in the formal shiny app within the package. `who_covid` data is downloaded from **WHO** website.
 
 
-```{r p13, fig.cap="Section 6 - who covid data set", out.width = '100%'}
+```{r p13, fig.cap="Section 6 - who covid data set", out.width = '50%'}
 knitr::include_graphics("screenshot/who_covid eg.png")
 ```
 
 
 Figure \@ref(fig:p14) shows three steps of mapping. First step is to rename two countries to make two data sets can be merged. Second step is to merge `who_covid` and map data. Third step is to use `geom_polygon()` to draw the map.
 
-```{r p14, fig.cap="Section 6 - who covid example", out.width = '100%'}
+```{r p14, fig.cap="Section 6 - who covid example", out.width = '50%'}
 knitr::include_graphics("screenshot/who_covid eg2.png")
 ```
 
@@ -196,7 +196,7 @@ In this section, there are two questions – Q7 and Q8. Q7 (Figure \@ref(fig:p15
 
 
 
-```{r p15, fig.cap="Section 6 - Q7", out.width = '100%'}
+```{r p15, fig.cap="Section 6 - Q7", out.width = '50%'}
 knitr::include_graphics("screenshot/section 6 q7.png")
 ```
 
@@ -206,11 +206,11 @@ Q8 (Figure \@ref(fig:p16)) is little bit harder than Q7, because learners must f
 
 
 
-```{r p16, fig.cap="Section 6 - Q8", out.width = '100%'}
+```{r p16, fig.cap="Section 6 - Q8", out.width = '50%'}
 knitr::include_graphics("screenshot/section 6 q8.png")
 ```
 
-```{r p17, fig.cap="Section 6 - Hints for Q8", out.width = '100%'}
+```{r p17, fig.cap="Section 6 - Hints for Q8", out.width = '50%'}
 knitr::include_graphics("screenshot/q8 hint.png")
 ```
 
@@ -224,14 +224,14 @@ In early version of shiny app, the examples and questions frequently used pipe o
 
 The developer does not want learners click the **Solution** button before at least trying the exercises. The aim of **Solution** button is to give learners some hints when they feel the exercises are too hard. In fact, in the shiny app, users cannot see the solutions before clicking **Submit** button. As the screenshot below showing, the **Solution** will keep loading and show nothing (Figure \@ref(fig:p18)). The developer tried and waited for over two minutes, but it was still loading. 
 
-```{r p18, fig.cap="Loading Solution", out.width = '100%'}
+```{r p18, fig.cap="Loading Solution", out.width = '50%'}
 knitr::include_graphics("screenshot/solution loading.png")
 ```
 
 
 After clicking **Submit** button, the solution will appear (as screenshot shown below)(Figure \@ref(fig:p19)). It may be sequential order between **Submit** and **Solution** buttons. That is, the content in **Solution** can be rendered only when users click **Submit** first.
 
-```{r p19, fig.cap="Solution output", out.width = '100%'}
+```{r p19, fig.cap="Solution output", out.width = '50%'}
 knitr::include_graphics("screenshot/solution output.png")
 ```
 
@@ -244,11 +244,11 @@ The first issue was part of the text in the shiny app does not display in right 
 
 At first, Ithe developer tried to set specific column width for each paragraph, but it did not work. Thanks for Mitch’s advice, all text part were written in Md or Rmd files, and used `includeMd` and `includeHTML` to solve the problem. The lession was it is better not to include too much text in a shiny app. Too much text will make the shiny app unnecessarily long, and it is difficult to design pretty layout in the shiny app. For instance, in the shiny app, it includes many screenshots and plots. related ui and sever must be created to show those screenshots or plots. So, the workload increases and later if there are too much plots the loading speed of the shiny app will be slow. But if using Md file or HTML file (generated by Rmd file), it would be easy to customise the layout and draw plots. In addition, because HTML files are prerendered, reading HTML files is faster than generating plots in the shiny app. Also, `includeHTML` is just one line of code, it saves spaces and shortens the length of the shiny app.
 
-```{r p20, fig.cap="Text display - normal", out.width = '100%'}
+```{r p20, fig.cap="Text display - normal", out.width = '50%'}
 knitr::include_graphics("screenshot/text issue 1.png")
 ```
 
-```{r p21, fig.cap="Text display - when maximising window ", out.width = '100%'}
+```{r p21, fig.cap="Text display - when maximising window ", out.width = '50%'}
 knitr::include_graphics("screenshot/text issue 1.png")
 ```
 
@@ -264,7 +264,7 @@ The second version was to let learners enter code freely. This version was simil
 
 `gradethis`, `vdiffr` and `testthat` are three packages can make the comparison. `gradethis` is a package which is always used with `learnr`. It can compare learners' answers with solutions and gives messages to learners when answers are wrong. However, `gradethis` is compatible with shiny. 
 
-```{r p22, fig.cap="gradethis package", out.width = '100%'}
+```{r p22, fig.cap="gradethis package", out.width = '50%'}
 knitr::include_graphics("screenshot/gradethis.png")
 ```
 
@@ -337,7 +337,7 @@ For `ggplotIntro`, the situation are different. Figure \@ref(fig:p23) shows how 
 
 The first trial was to put everything in `R/`. An error message displayed, and the shiny app could not function at all. The reason was Rmd and html files were introduction paragraphs used in each section, which were not R code, thus, they could not be in `R/`. So, the tricky part is how to locate these files and folders.
 
-```{r p23, fig.cap="The app folder", out.width = '100%'}
+```{r p23, fig.cap="The app folder", out.width = '50%'}
 knitr::include_graphics("screenshot/app folder.png")
 ```
 
@@ -346,7 +346,7 @@ knitr::include_graphics("screenshot/app folder.png")
 The shiny app used two new data sets, and the data sets were built in the package. So, some code chunks were changed (Figure (\@ref(fig:p24)) gives one example). One advantage of making such changes was to tidy the shiny app layout. Another advantage was to cut off some data wrangling code chunks. The main focus of the project is to teach ggplot, so, the learners should not be distracted from ggplot by data wrangling.
 
 
-```{r p24, fig.cap="The app folder", out.width = '100%'}
+```{r p24, fig.cap="The app folder", out.width = '50%'}
 knitr::include_graphics("screenshot/transfer to package 1.png")
 ```
 
