@@ -22,3 +22,16 @@
 My project is to build a package which contains a shiny app helping new
 `ggplot` learners and motivate them. The package is called `ggplotIntro`
 (GitHub [link](https://github.com/ycui0008/ggplotIntro)).
+
+# Install the package
+
+```
+# install.packages("devtools")
+devtools::install_github("ycui0008/ggplotIntro")
+```
+
+# Use the package
+
+```
+launch_app()
+```
