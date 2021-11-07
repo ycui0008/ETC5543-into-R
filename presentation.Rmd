@@ -43,14 +43,8 @@ library(xaringanExtra)
 library(tidyverse)
 ```
 
-```{r read-data, echo = FALSE, message=FALSE,warning=FALSE}
-climate_locations <- read_csv(here::here("data/Microclimate_Sensor_Locations.csv"))
-climate_readings <- read_csv(here::here("data/Microclimate_Sensor_Readings.csv"))
-```
 
-
-
-background-image: url(https://visualpharm.com/assets/153/Humidity-595b40b75ba036ed117d8d07.svg)
+background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZSHVUsnIGDV3Plqb_8Wrrn9aKJ_fphFe_-gMZ1ST0fiChySiS)
 background-size: 350px
 background-position: 88% 60%
 
@@ -70,434 +64,135 @@ background-position: 88% 60%
 # Outline
 
 #### What is the aim of `ggplotIntro` package?
-#### What is the conponents of the package?
+#### What are the conponents of the package?
 #### What does the shiny app look like and how to use it?
-
----
-background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZSHVUsnIGDV3Plqb_8Wrrn9aKJ_fphFe_-gMZ1ST0fiChySiS)
-background-size: 450px
-background-position: 50% 80%
-
-# What is the aim of `ggplotIntro` package?
-
-> The relative humidity is the ratio of the amount of **water vapour** actually present in the air to the greatest amount possible at the same temperature.
+#### What are the possible improvements that could be done?
 
 ---
 
-# What is the components of the package
+### Background
+
+* Big data and data-driven decision-making are two important concepts also of growing importance (Provost & Fawcett, 2013).
+* Data-driven decision-making is wildly used for prediction (e.g. energy companies).
+* Data visualisation is fundamental within the field of statistics and data science.
+
+--
+### Aim
+* Motivate new `ggplot2` package learner
+* Decrease the anxiety of learning `ggplot2`
+
+---
+
+
+# Gamification and Shiny app
 
 .panelset[
-.panel[.panel-name[climate_locations.csv]
-```{r view-location, echo = FALSE}
-climate_locations %>% 
-  kable() %>% 
-  kable_material(c("striped", "hover"), font_size = 9, full_width = F)
-```
-
-This dataset has 5 observations and 6 variables.
-
-source from [Microclimate Sensor Locations](https://data.melbourne.vic.gov.au/Environment/Microclimate-Sensor-Locations/irqv-hjr4)
-
+.panel[.panel-name[Gamification]
+* Interest was recognised as an independent factor and the desired outcome in the process of learning (Schiefele, 1991).
+* Four general ways to increase intrinsic motivation – behavior undertaken for its own sake, for the enjoyment it provides, the learning it permits, or the feelings of accomplishment it evokes (Lepper, 1988).
+* Educational games have been successfully used to teach many school subjects (Corbett et al., 2001).
+* Students might be expected to have considerably better tolerance of discomfort but greater fears of failure; fear of failure may lead to increased anxiety and then to problems with tolerating these emotions (Harrington, 2005).
+* In conclusion, the gamification can motivate new learners, increase the feelings of ownership and interactivity, and decrease the anxiety of learning.
 ]
 
-.panel[.panel-name[climate_readings.csv]
-```{r view-readings, echo = FALSE}
-climate_readings %>% 
-  head(5) %>% 
-  kable() %>% 
-  kable_material(c("striped", "hover"), font_size = 9, full_width = F)
-```
+.panel[.panel-name[Shiny app]
 
-This dataset has `r nrow(climate_readings)` observations and `r ncol(climate_readings)` variables.
-
-source from [Microclimate Sensor Readings](https://data.melbourne.vic.gov.au/Environment/Microclimate-Sensor-Readings/u4vh-84j8?src=featured_banner) 
-]
-
-
-]
-
----
-### How does the recorded relative humidity distribute?
-
-.panelset[
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE, out.width="100%", fig.height=4.3, cache=TRUE}
-humidity_dat %>%
-  ggplot(aes(x = value)) +
-  geom_histogram(color = "#2C3E50", fill = "#5D6D7E") +
-  geom_vline(xintercept = c(30, 60),  
-             color = "#16A085", 
-             size = 1, 
-             linetype="dashed") +
-  annotate("text", x = 45, y = 12500, label = "Comfortable RH", color = "#16A085", size = 3) +
-  annotate("text", x = 14, y = 10000, label = "Uncomfortable RH", color = "#E74C3C", size = 5) +
-  annotate("text", x = 80, y = 10000, label = "Uncomfortable RH", color = "#E74C3C", size = 5) +
-  ggtitle("Relative Humidity distribution in Melbourne") +
-  xlab("Relative Humidity (%)") +
-  ylab("Count") +
-  scale_y_continuous(label=scales::comma_format()) +
-  theme_classic()
-```
-]
-
----
-### How does the comfortable relative humidity distribute throughout a day?
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE,}
-humidity_conf <- humidity_dat %>%
-  mutate(humidity = case_when(
-    value < 30 ~ "dry",
-    value >= 30 & value <= 60 ~ "comfort",
-    value > 60 ~ "wet")) %>%
-  filter(humidity == "comfort")
-
-
-CI_conf <- round(quantile(humidity_conf$minute, c(0.1, 0.9)),2)
-
-```
-
-.panelset[
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE, out.width="100%", fig.height=4.5, cache=TRUE}
-humidity_dat %>%
-  mutate(humidity = case_when(
-    value < 30 ~ "dry",
-    value >= 30 & value <= 60 ~ "comfort",
-    value > 60 ~ "wet")) %>%
-  filter(humidity == "comfort") %>%
-  ggplot(aes(x = minute)) +
-  geom_histogram(color = "#80B488", fill = "#92CF9B") +
-  xlab("Time") +
-  ylab("Count") +
-  geom_vline(xintercept = CI_conf, 
-             color = "#E74C3C", 
-             size = 1, 
-             linetype="dashed") +
-  geom_segment(aes(x = mean(CI_conf) - 40, y = 4900, xend = CI_conf[1], yend = 4900), arrow = arrow(length = unit(0.5, "cm")), color = "#E74C3C") +
-  geom_segment(aes(x = mean(CI_conf) + 80, y = 4900, xend = CI_conf[2], yend = 4900), arrow = arrow(length = unit(0.5, "cm")), color = "#E74C3C") +
-  annotate("text", x = 860, y = 4900, label = "80%", color = "#2C3E50", size = 5) +
-  annotate("label", CI_conf[1] - 90, y = 4000, label="07:36", color = "#2C3E50", size = 5) +
-  annotate("label", CI_conf[2] + 90, y = 4000, label="20:14", color = "#2C3E50", size = 5) +
-  ggtitle("Comfortable RH distributed throughout a day") +
-  scale_y_continuous(label=scales::comma_format()) +
-  scale_x_continuous(breaks = c(0, 360, 720, 1080, 1440),
-                     label = c("00:00", "06:00", "12:00", "18:00", "00:00")) +
-  theme_classic()
-```
-]
-
----
-### Average Relative Humidity throughout a day
-
-.panelset[
-.panel[.panel-name[Daily Average]
-```{r, echo=FALSE, warning=FALSE, message=FALSE, out.width="100%", fig.height=3.5}
-humidity_dat %>% 
-  group_by(minute) %>% 
-  summarise(mean_rh = mean(value, na.rm = TRUE))  %>%
-  ggplot() +
-  geom_rect(aes(xmin = 650, xmax = 1120, ymin = -Inf, ymax = Inf), alpha = 0.05, fill = "#A3E4D7") +
-  geom_point(aes(x = minute, y = mean_rh)) +
-  geom_smooth(aes(x = minute, y = mean_rh), method = loess) +
-  ylim(25, 80) +
-  ylab("Relative Humidity (%)") +
-  xlab("Time") +
-  ggtitle("RH change throughout a day in Melbourne") +
-  geom_hline(yintercept = c(30, 60), color = "#16A085", size = 1, linetype="dashed") +
-  scale_x_continuous(breaks = c(0, 360, 720, 1080, 1440),
-                     label = c("00:00", "06:00", "12:00", "18:00", "00:00")) +
-  theme_classic()
-```
-]
-
-.panel[.panel-name[Daily Average (differs across the season)]
-```{r, echo=FALSE, warning=FALSE, message=FALSE, out.width="95%", fig.height=3.5}
-humidity_dat %>% 
-  group_by(minute, season) %>% 
-  summarise(mean_rh = mean(value, na.rm = TRUE))  %>%
-  ggplot() +
-  geom_line(aes(x = minute, y = mean_rh)) +
-  ylab("Relative Humidity (%)") +
-  xlab("Time") +
-  facet_wrap(~season) +
-  ylim(25, 80) +
-  ggtitle("RH change throughout the day in Melbourne (differs across the season)") +
-  geom_hline(yintercept = c(30, 60), color = "#16A085", size = 1, linetype="dashed") +
-  scale_x_continuous(breaks = c(0, 360, 720, 1080, 1440),
-                     label = c("00:00", "06:00", "12:00", "18:00", "00:00")) +
-  theme_classic()
-```
-
+* It makes the gamification more manageable.
+* Differentiate the project from other online tutorials
+* In conclusion, the shiny app is more interactive and more like games.
 ]
 ]
 
 ---
-### Relative Humidity throughout a year
 
-.panelset[
-```{r,echo = FALSE, message=FALSE, warning=FALSE, out.width="100%", fig.height=4.8}
-df3 <- climate_readings_hrly %>% 
-  group_by(date, site_id) %>% 
-  summarise(value_mean = mean(value, na.rm = TRUE)) %>% 
-  ungroup() %>%
-  mutate(comfort = case_when(
-    value_mean > 30 & value_mean < 60 ~ "Comfortable", 
-    TRUE ~ "Uncomfortable"
-    ))
+# What are the components of the `ggplotIntro` package
 
-df3$comfort <- factor(df3$comfort, levels = c("Uncomfortable", "Comfortable"), labels = c("Uncomfortable", "Comfortable"))
+* Two data sets: 
 
-df2 <- df3 %>% 
-  mutate(month = month(date)) %>% 
-  mutate(season = case_when(
-    month %in% c(9:11) ~ "Spring",
-    month %in% c(12,1,2) ~ "Summer",
-    month %in% c(3:5) ~ "Autumn",
-    TRUE ~ "Winter"
-  ))
+  + `who_covid`: WHO, covid-19 cases data till now
+  + `GDP`: World Bank, GDP from 1966
 
-df2$season <- factor(df2$season, levels=c("Spring", "Summer", "Autumn", "Winter"), labels=c("Spring", "Summer", "Autumn", "Winter"))
-
-p1 <- df2 %>% 
-  # filter(site_id == "arc1045") %>%
-  # group_by(date, site_id) %>% 
-  # summarise(value_mean = mean(value)) %>% 
-  # ungroup() %>% 
-  ggplot(aes(x = date, y = value_mean)) +
-  geom_rect(ymin =30, ymax = 60, xmin = as.Date("2019-11-01", format = "%Y-%m-%d"), 
-            xmax = as.Date("2020-11-20", format = "%Y-%m-%d"), fill = "#A3E4D7", alpha = 0.05) +
-  geom_point(aes(color = season), size = 0.5) +
-  # geom_line()+
-  scale_x_date(date_breaks = "1 month")+
-  geom_vline(xintercept = as.Date("2020-01-01"), size = 1, color = "red")+
-  geom_hline(yintercept = c(30, 60), color = "#76D7C4", size = 1)+
-  annotate("label", x = as.Date("2019-12-03"), y = 90, label = "2020-01-01", color = "red", size = 3)+
-  labs(y = "Relative Humidity (%)", x = "", title = "RH change throughout a year in Melbourne", subtitle = "RH range is from 1 to 100") +
-  annotate("text", x = as.Date("2020-05-01"), y = 45, label = "Comfortable RH (30% ~ 60%)", color = "Black", size = 6)+
-  geom_smooth(span = 0.1)+
-  theme_classic() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        legend.title = element_blank(),
-        legend.position = "bottom",
-        legend.text=element_text(size=12)) 
-
-ggExtra::ggMarginal(p1, type = "histogram", margins = "y", color = "steelblue", fill = "steelblue", alpha = 0.2)
-```
-
-
-
-
-]
-
----
-### Average Relative Humidity throughout a year (Calendar heatmap)
-
-```{r ggcal-function, echo = FALSE, message= FALSE,warning= FALSE}
-ggcal <- function(dates, fills) {
-  # get ordered vector of month names
-  months <- format(seq(as.Date("2016-01-01"), as.Date("2016-12-01"), by="1 month"), "%B")
-
-  # get lower and upper bound to fill in missing values
-  mindate <- as.Date(format(min(dates), "%Y-%m-01"))
-  maxdate <- (seq(as.Date(format(max(dates), "%Y-%m-01")), length.out = 2, by="1 month")-1)[2]
-  # set up tibble with all the dates.
-  filler <- tibble(date = seq(mindate, maxdate, by="1 day"))
-
-  t1 <- tibble(date = dates, fill=fills) %>%
-    right_join(filler, by="date") %>% # fill in missing dates with NA
-    mutate(dow = as.numeric(format(date, "%w"))) %>%
-    mutate(month = format(date, "%B")) %>%
-    mutate(woy = as.numeric(format(date, "%U"))) %>%
-    mutate(year = as.numeric(format(date, "%Y"))) %>%
-    mutate(month = factor(month, levels=months, ordered=TRUE)) %>%
-    arrange(year, month) %>%
-    mutate(monlabel=month)
-
-  if (length(unique(t1$year))>1) { # multi-year data set
-    t1$monlabel <- paste(t1$month, t1$year)
-  }
-
-  t2 <- t1 %>%
-    mutate(monlabel = factor(monlabel, ordered=TRUE)) %>%
-    mutate(monlabel = fct_inorder(monlabel)) %>%
-    mutate(monthweek = woy-min(woy),
-           y=max(monthweek)-monthweek+1)
-
-weekdays <- c("S", "M", "T", "W", "T", "F", "S")
-ggplot(t2, aes(dow, y, fill=fill)) +
-  geom_tile(color="gray80") +
-  facet_wrap(~monlabel, ncol=4, scales="free") +
-  scale_x_continuous(expand=c(0,0), position="top",
-                     breaks=seq(0,6), labels=weekdays) +
-  scale_y_continuous(expand=c(0,0)) +
-  theme(panel.background=element_rect(fill=NA, color=NA),
-        strip.background = element_rect(fill=NA, color=NA),
-        strip.text.x = element_text(hjust=0, face="bold"),
-        legend.title = element_blank(),
-        axis.ticks=element_blank(),
-        axis.title=element_blank(),
-        axis.text.y = element_blank(),
-        strip.placement = "outsite")
-}
-```
-
-.panelset[
-```{r heatmap-general, echo = FALSE, message= FALSE,warning= FALSE, out.width="80%", fig.height=4.5, fig.align='center'}
-df5 <- climate_readings_hrly %>% 
-  filter(type == "TPH.RH-EPA-1h") %>% 
-  group_by(date) %>% 
-  summarise(daily_mean_rh = mean(value, na.rm = TRUE)) %>% 
-  ungroup() %>%
-  mutate(comfort = case_when(
-    daily_mean_rh > 30 & daily_mean_rh < 60 ~ "Comfortable", 
-    TRUE ~ "Uncomfortable"
-    ))
-
-df5$comfort <- factor(df5$comfort, levels = c("Uncomfortable", "Comfortable"), labels = c("Uncomfortable", "Comfortable"))
-
-dates <- pull(df5, date)
-
-value <- df5 %>% 
-  pull(comfort)
-
-ggcal(dates = dates, fills = value)+
-  scale_fill_manual(name ="value", 
-                    values = c("#34495E",
-                               "#58D68D"))
-```
-
-]
-
----
-### Four seasons in Melbourne
-
-
-```{r comfort_season, echo = FALSE, cache = TRUE}
-df4 <- df2 %>% 
-  group_by(comfort, season) %>% 
-  count(comfort) %>% 
-  ungroup() 
-
-uncomfortable <- max(filter(df4, comfort == "Uncomfortable")$n)
-comfortable <- max(filter(df4, comfort == "Comfortable")$n)
-
-dt1 <- df4 %>% 
-  rename("Season" = "season") %>% 
-  pivot_wider(names_from = "comfort", values_from = n) %>% 
-  datatable(rownames = FALSE, options = list(dom = 't')) %>% 
-  formatStyle(columns = "Uncomfortable", 
-              background = styleEqual(uncomfortable, "lightblue")) %>%
-  formatStyle(columns = "Comfortable", 
-              background = styleEqual(comfortable, "#58D68D"))
-
-dt1 %>% widgetframe::frameWidget(height = 200)
-```
-
-**Summer** is the most *comfortable season* 
-
-**Winter** is the most *uncomfortable season*
-
-
-
-
-
-
-
----
-### MapView by each sensor
-
-.panelset[
-```{r yes-no-map, echo=FALSE, warning=FALSE, out.width='100%'}
-df3 <- df2 %>% 
-  group_by(site_id, comfort) %>% 
-  count(comfort) %>% 
-  pivot_wider(names_from = "comfort",
-              values_from = "n") 
-
-df3 <- df3 %>% 
-  left_join(climate_locations, by = "site_id") 
-
-waterIcon <- makeIcon(
-  iconUrl = "https://www.flaticon.com/svg/static/icons/svg/1779/1779883.svg",
-  iconWidth = 50, iconHeight = 50
-  )
-
-
-leaflet(df3) %>% 
-  addProviderTiles(provider = "Stamen.TonerLite") %>% 
-  addMarkers(lng = ~longitude,
-             lat = ~latitude,
-             popup = paste("Site id:", df3$site_id, "<br>",
-                           "Location:", df3$description, "<br>",
-                           "Uncomfortable records:", df3$Uncomfortable, "<br>",
-                           "Comfortable records:", df3$Comfortable),
-             icon = waterIcon)
-```
-]
-
----
-
-class: center, middle
-
-
-### Conclusion
-
-The most uncomfortable hours: *06:00* to *08:00 am*
-
-The most uncomfortable months: *June* and *July*
-
-
-
-
----
-### How does Relative Humidity affect us?
-
-
-.pull-left[
-```{r image2, echo=FALSE}
-knitr::include_graphics("https://www.beeculture.com/wp-content/uploads/2019/07/BUZZ-1.jpg")
-```
-
-]
-
-.pull-right[
-
-```{r image1,echo=FALSE}
-knitr::include_graphics("https://www.wikihow.com/images/thumb/0/0f/Paint-a-Tree-Step-1.jpg/aid1424146-v4-728px-Paint-a-Tree-Step-1.jpg")
-```
-
-**Consequences**:
-
-- Increase the costs of protecting plants from harmful larva and fungus.
-- Living in a high-RH environment would cause short- and long-term health problem.
-
-]
+* **Main body**: A shiny app
+  + load the package, then use `launch_app()`
 
 ---
 class: middle
 
 <center>
-## Thanks!
 
+# Introduction of the shiny app
+
+---
+
+# Possible improvements
+
+.panelset[
+.panel[.panel-name[Question bank]
+**Random questions**
+* Students benefit a little from rereading and restudying coherent and complex learning material (Callender & McDaniel, 2009). If the shiny app gives the same question to all learners every time, it is not beneficial for learners to restudying and reusing the exercises within the shiny app.
+* Promotion of long-term retention is substantial, and the learning material should allow students to apply their knowledge in a variety of contexts (Ebersbach et al., 2020).
+
+
+**Different difficulty levels**
+* When playing games players enjoyed more, if the difficulty satisfied their gaming experience (Alexander et al., 2013).
+* Offer questions of proper difficulty levels to learners.
+
+]
+
+.panel[.panel-name[Functions]
+
+* Tidy the shiny app script.
+* More convenient for question creation in the future.
+* Less likely to make mistakes.
+]
+]
+
+
+---
+class: middle
 <center>
-These slides were created by using [**xaringan**](https://github.com/yihui/xaringan).
 
---
-### Reference and Acknowledgement
-
-Data source from [Microclimate Sensor Locations](https://data.melbourne.vic.gov.au/Environment/Microclimate-Sensor-Locations/irqv-hjr4) and [Microclimate Sensor Readings](https://data.melbourne.vic.gov.au/Environment/Microclimate-Sensor-Readings/u4vh-84j8?src=featured_banner).
-
-Slides constructed with [`xaringan`](https://github.com/yihui/xaringan), [`knitr`](http://yihui.name/knitr) and [R Markdown](https://rmarkdown.rstudio.com),  [`xaringanExtra`](https://github.com/gadenbuie/xaringanExtra).
-
-Data coding using [`tidyverse`](https://www.tidyverse.org), [`kableExtra`](https://CRAN.R-project.org/package=kableExtra), [`sugrrants`](https://doi.org/10.1080/10618600.2020.1715226), [`leaflet`](https://CRAN.R-project.org/package=leaflet), [`lubridate`](http://www.jstatsoft.org/v40/i03/), [`DT`](https://CRAN.R-project.org/package=DT) and [`countdown`](https://github.com/gadenbuie/countdown).
-
+# Thanks!
 
 
 
 ---
+# Acknowledgement
+
+This project would not have been possible without *Emi Tanaka*, the project supervisor, and *Mitchell O’Hara-Wild*. They helped a lot when developing the shiny app. The developer would also like to thank *Jessica Leung*.
+
+Slides constructed with [`xaringan`](https://github.com/yihui/xaringan), [`knitr`](http://yihui.name/knitr) and [R Markdown](https://rmarkdown.rstudio.com),  [`xaringanExtra`](https://github.com/gadenbuie/xaringanExtra).
+
+---
+# Reference
+<font size="2", style="font-family:cursive"> Alexander, J. T., Sear, J. & Oikonomou, A. (2013). An investigation of the effects of game difficulty on player enjoyment. Entertainment Computing, 4 (1), 53–62. </font>
+<br>
+<font size="2", style="font-family:cursive"> Callender, A. A. & McDaniel, M. A. (2009). The limited benefits of rereading educational texts. Contemporary Educational Psychology, 34 (1), 30–41. </font>
+<br>
+
+<font size="2", style="font-family:cursive"> Corbett, A. T., Koedinger, K. & Hadley, W. S. (2001). Cognitive tutors: From the research classroom to all classrooms. In Technology enhanced learning (pp. 215–240). Routledge. </font>
+<br>
+
+<font size="2", style="font-family:cursive"> Ebersbach, M., Feierabend, M. & Nazari, K. B. B. (2020). Comparing the effects of generating questions, testing, and restudying on students’ long-term recall in university learning. Applied Cognitive Psychology, 34 (3), 724–736. </font>
+<br>
+
+<font size="2", style="font-family:cursive"> Harrington, N. (2005). It’s too difficult! Frustration intolerance beliefs and procrastination. Personality and Individual Differences, 39 (5), 873–883. </font>
+<br>
+
+<font size="2", style="font-family:cursive"> Lepper, M. R. (1988). Motivational considerations in the study of instruction. Cognition and Instruction, 5 (4), 289–309. </font>
+<br>
+
+<font size="2", style="font-family:cursive"> Provost, F. & Fawcett, T. (2013). Data science and its relationship to big data and data-driven decision making. Big Data, 1 (1), 51–59. </font>
+<br>
+
+<font size="2", style="font-family:cursive"> Schiefele, U. (1991). Interest, learning, and motivation. Educational Psychologist, 26 (3-4), 299–323. </font>
+
+
+---
 class: center, middle
+
 # Any questions?
 
 ```{r countdown, echo = FALSE}
-countdown::countdown(minutes = 2, seconds = 0)
+countdown::countdown(minutes = 5, seconds = 0)
 ```
