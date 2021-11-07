@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.28)  3 NOV 2021 21:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.28)  7 NOV 2021 16:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -607,39 +607,39 @@ x.map}] [2]
 <screenshot/section 1.png, id=102, 2052.16687pt x 1238.37656pt>
 File: screenshot/section 1.png Graphic file (type png)
 <use screenshot/section 1.png>
-Package pdftex.def Info: screenshot/section 1.png  used on input line 156.
+Package pdftex.def Info: screenshot/section 1.png  used on input line 158.
 (pdftex.def)             Requested size: 234.85129pt x 141.7206pt.
-<screenshot/section 2.png, id=103, 2008.50375pt x 1243.64626pt>
+[3 <./screenshot/section 1.png>]
+<screenshot/section 2.png, id=114, 2008.50375pt x 1243.64626pt>
 File: screenshot/section 2.png Graphic file (type png)
 <use screenshot/section 2.png>
-Package pdftex.def Info: screenshot/section 2.png  used on input line 170.
+Package pdftex.def Info: screenshot/section 2.png  used on input line 172.
 (pdftex.def)             Requested size: 234.84995pt x 145.41682pt.
-[3 <./screenshot/section 1.png>]
 <screenshot/section 3 Q3.png, id=117, 332.74312pt x 501.37312pt>
 File: screenshot/section 3 Q3.png Graphic file (type png)
 <use screenshot/section 3 Q3.png>
-Package pdftex.def Info: screenshot/section 3 Q3.png  used on input line 184.
+Package pdftex.def Info: screenshot/section 3 Q3.png  used on input line 186.
 (pdftex.def)             Requested size: 234.8784pt x 353.9118pt.
 <screenshot/wrong 1.png, id=120, 904.88063pt x 260.47313pt>
 File: screenshot/wrong 1.png Graphic file (type png)
 <use screenshot/wrong 1.png>
-Package pdftex.def Info: screenshot/wrong 1.png  used on input line 195.
+Package pdftex.def Info: screenshot/wrong 1.png  used on input line 197.
 (pdftex.def)             Requested size: 234.87682pt x 67.61012pt.
 <screenshot/success.png, id=122, 906.38625pt x 230.36063pt>
 File: screenshot/success.png Graphic file (type png)
 <use screenshot/success.png>
-Package pdftex.def Info: screenshot/success.png  used on input line 206.
+Package pdftex.def Info: screenshot/success.png  used on input line 208.
 (pdftex.def)             Requested size: 234.86653pt x 59.69199pt.
 <screenshot/solution sample.png, id=124, 861.2175pt x 121.95563pt>
 File: screenshot/solution sample.png Graphic file (type png)
 <use screenshot/solution sample.png>
-Package pdftex.def Info: screenshot/solution sample.png  used on input line 217
+Package pdftex.def Info: screenshot/solution sample.png  used on input line 219
 .
 (pdftex.def)             Requested size: 234.87094pt x 33.25969pt.
 <screenshot/tot score.png, id=127, 669.2503pt x 426.09187pt>
 File: screenshot/tot score.png Graphic file (type png)
 <use screenshot/tot score.png>
-Package pdftex.def Info: screenshot/tot score.png  used on input line 228.
+Package pdftex.def Info: screenshot/tot score.png  used on input line 230.
 (pdftex.def)             Requested size: 234.87425pt x 149.53748pt.
 [4 <./screenshot/section 2.png>] [5 <./screenshot/section 3 Q3.png> <./screensh
 ot/wrong 1.png> <./screenshot/success.png> <./screenshot/solution sample.png>]
@@ -647,118 +647,118 @@ ot/wrong 1.png> <./screenshot/success.png> <./screenshot/solution sample.png>]
 File: screenshot/colourful mtcars.png Graphic file (type png)
 <use screenshot/colourful mtcars.png>
 Package pdftex.def Info: screenshot/colourful mtcars.png  used on input line 25
-1.
+3.
 (pdftex.def)             Requested size: 234.86879pt x 139.40341pt.
-[6 <./screenshot/tot score.PNG> <./screenshot/colourful mtcars.png>]
-<screenshot/wrong 2.png, id=157, 905.63344pt x 266.49562pt>
+<screenshot/wrong 2.png, id=148, 905.63344pt x 266.49562pt>
 File: screenshot/wrong 2.png Graphic file (type png)
 <use screenshot/wrong 2.png>
-Package pdftex.def Info: screenshot/wrong 2.png  used on input line 262.
+Package pdftex.def Info: screenshot/wrong 2.png  used on input line 264.
 (pdftex.def)             Requested size: 234.87874pt x 69.11642pt.
-
-Overfull \hbox (70.99341pt too wide) in paragraph at lines 280--280
+[6 <./screenshot/tot score.PNG>]
+Overfull \hbox (70.99341pt too wide) in paragraph at lines 282--282
 []  \T1/lmtt/m/n/10 ___(___ = "Relationship between Gross horsepower and Number
  of Cylinders for 32 automobiles in 1974",[] 
  []
 
-<screenshot/j snow.png, id=159, 453.33pt x 425.4075pt>
+<screenshot/j snow.png, id=161, 453.33pt x 425.4075pt>
 File: screenshot/j snow.png Graphic file (type png)
 <use screenshot/j snow.png>
-Package pdftex.def Info: screenshot/j snow.png  used on input line 289.
+Package pdftex.def Info: screenshot/j snow.png  used on input line 291.
 (pdftex.def)             Requested size: 453.32889pt x 425.40646pt.
-<screenshot/section 6 intro.png, id=161, 949.29657pt x 1023.825pt>
+<screenshot/section 6 intro.png, id=163, 949.29657pt x 1023.825pt>
 File: screenshot/section 6 intro.png Graphic file (type png)
 <use screenshot/section 6 intro.png>
-Package pdftex.def Info: screenshot/section 6 intro.png  used on input line 300
+Package pdftex.def Info: screenshot/section 6 intro.png  used on input line 302
 .
 (pdftex.def)             Requested size: 234.87558pt x 253.31544pt.
-<screenshot/section 6 scatterplot.png, id=163, 1057.70157pt x 822.82407pt>
+[7 <./screenshot/colourful mtcars.png> <./screenshot/wrong 2.png>] [8 <./screen
+shot/j snow.png>]
+<screenshot/section 6 scatterplot.png, id=179, 1057.70157pt x 822.82407pt>
 File: screenshot/section 6 scatterplot.png Graphic file (type png)
 <use screenshot/section 6 scatterplot.png>
 Package pdftex.def Info: screenshot/section 6 scatterplot.png  used on input li
-ne 311.
+ne 313.
 (pdftex.def)             Requested size: 234.87386pt x 182.71681pt.
-<screenshot/who_covid eg.png, id=165, 411.03563pt x 388.45125pt>
+<screenshot/who_covid eg.png, id=181, 411.03563pt x 388.45125pt>
 File: screenshot/who_covid eg.png Graphic file (type png)
 <use screenshot/who_covid eg.png>
-Package pdftex.def Info: screenshot/who_covid eg.png  used on input line 322.
+Package pdftex.def Info: screenshot/who_covid eg.png  used on input line 324.
 (pdftex.def)             Requested size: 234.87602pt x 221.97073pt.
-[7 <./screenshot/wrong 2.png>] [8 <./screenshot/j snow.png>] [9 <./screenshot/s
-ection 6 intro.png> <./screenshot/section 6 scatterplot.png>]
-<screenshot/who_covid eg2.png, id=189, 410.2828pt x 594.72188pt>
+<screenshot/who_covid eg2.png, id=183, 410.2828pt x 594.72188pt>
 File: screenshot/who_covid eg2.png Graphic file (type png)
 <use screenshot/who_covid eg2.png>
-Package pdftex.def Info: screenshot/who_covid eg2.png  used on input line 333.
+Package pdftex.def Info: screenshot/who_covid eg2.png  used on input line 335.
 (pdftex.def)             Requested size: 234.8778pt x 340.4651pt.
-<screenshot/section 6 q7.png, id=191, 982.42032pt x 1044.15094pt>
+[9 <./screenshot/section 6 intro.png> <./screenshot/section 6 scatterplot.png>]
+[10 <./screenshot/who_covid eg.png> <./screenshot/who_covid eg2.PNG>]
+<screenshot/section 6 q7.png, id=199, 982.42032pt x 1044.15094pt>
 File: screenshot/section 6 q7.png Graphic file (type png)
 <use screenshot/section 6 q7.png>
-Package pdftex.def Info: screenshot/section 6 q7.png  used on input line 344.
+Package pdftex.def Info: screenshot/section 6 q7.png  used on input line 346.
 (pdftex.def)             Requested size: 234.87128pt x 249.62947pt.
-<screenshot/section 6 q8.png, id=194, 769.37437pt x 984.67876pt>
+<screenshot/section 6 q8.png, id=202, 769.37437pt x 984.67876pt>
 File: screenshot/section 6 q8.png Graphic file (type png)
 <use screenshot/section 6 q8.png>
-Package pdftex.def Info: screenshot/section 6 q8.png  used on input line 355.
+Package pdftex.def Info: screenshot/section 6 q8.png  used on input line 357.
 (pdftex.def)             Requested size: 234.87602pt x 300.60454pt.
-<screenshot/q8 hint.png, id=195, 904.1278pt x 267.24844pt>
+<screenshot/q8 hint.png, id=203, 904.1278pt x 267.24844pt>
 File: screenshot/q8 hint.png Graphic file (type png)
 <use screenshot/q8 hint.png>
-Package pdftex.def Info: screenshot/q8 hint.png  used on input line 364.
+Package pdftex.def Info: screenshot/q8 hint.png  used on input line 366.
 (pdftex.def)             Requested size: 234.87454pt x 69.42586pt.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 372.
-<screenshot/solution loading.png, id=197, 1209.76968pt x 692.5875pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 374.
+<screenshot/solution loading.png, id=205, 1209.76968pt x 692.5875pt>
 File: screenshot/solution loading.png Graphic file (type png)
 <use screenshot/solution loading.png>
 Package pdftex.def Info: screenshot/solution loading.png  used on input line 38
-3.
+5.
 (pdftex.def)             Requested size: 234.86118pt x 134.45692pt.
-<screenshot/solution output.png, id=199, 1340.75906pt x 723.45282pt>
+<screenshot/solution output.png, id=207, 1340.75906pt x 723.45282pt>
 File: screenshot/solution output.png Graphic file (type png)
 <use screenshot/solution output.png>
-Package pdftex.def Info: screenshot/solution output.png  used on input line 394
+Package pdftex.def Info: screenshot/solution output.png  used on input line 396
 .
 (pdftex.def)             Requested size: 234.86139pt x 126.72757pt.
-[10 <./screenshot/who_covid eg.png>] [11 <./screenshot/who_covid eg2.PNG> <./sc
-reenshot/section 6 q7.png>] [12 <./screenshot/section 6 q8.png> <./screenshot/q
-8 hint.png> <./screenshot/solution loading.png>]
-<screenshot/text issue 1.png, id=226, 690.32906pt x 695.59875pt>
+[11 <./screenshot/section 6 q7.png>] [12 <./screenshot/section 6 q8.png> <./scr
+eenshot/q8 hint.png> <./screenshot/solution loading.png>]
+<screenshot/text issue 1.png, id=228, 690.32906pt x 695.59875pt>
 File: screenshot/text issue 1.png Graphic file (type png)
 <use screenshot/text issue 1.png>
-Package pdftex.def Info: screenshot/text issue 1.png  used on input line 413.
+Package pdftex.def Info: screenshot/text issue 1.png  used on input line 415.
 (pdftex.def)             Requested size: 234.8773pt x 236.67027pt.
 File: screenshot/text issue 1.png Graphic file (type png)
 <use screenshot/text issue 1.png>
-Package pdftex.def Info: screenshot/text issue 1.png  used on input line 422.
+Package pdftex.def Info: screenshot/text issue 1.png  used on input line 424.
 (pdftex.def)             Requested size: 234.8773pt x 236.67027pt.
-[13 <./screenshot/solution output.png>] [14 <./screenshot/text issue 1.png>]
-<screenshot/gradethis.png, id=245, 596.2275pt x 464.73625pt>
+<screenshot/gradethis.png, id=231, 596.2275pt x 464.73625pt>
 File: screenshot/gradethis.png Graphic file (type png)
 <use screenshot/gradethis.png>
-Package pdftex.def Info: screenshot/gradethis.png  used on input line 440.
+Package pdftex.def Info: screenshot/gradethis.png  used on input line 442.
 (pdftex.def)             Requested size: 234.87498pt x 183.07596pt.
+[13 <./screenshot/solution output.png>] [14 <./screenshot/text issue 1.png>]
 
-LaTeX Warning: Reference `Comparison' on page 15 undefined on input line 454.
+LaTeX Warning: Reference `Comparison' on page 15 undefined on input line 456.
 
 [15 <./screenshot/gradethis.png>]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 484--484
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 486--486
 []            \T1/lmtt/m/n/10 ModalText = "Hint: see the solution to Q7 and pre
 vious example." # Hint message[] 
  []
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 487.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 489.
 [16]
 <screenshot/app folder.png, id=264, 562.35094pt x 437.38406pt>
 File: screenshot/app folder.png Graphic file (type png)
 <use screenshot/app folder.png>
-Package pdftex.def Info: screenshot/app folder.png  used on input line 523.
+Package pdftex.def Info: screenshot/app folder.png  used on input line 525.
 (pdftex.def)             Requested size: 234.87292pt x 182.67892pt.
 <screenshot/transfer to package 1.png, id=266, 852.93657pt x 953.81343pt>
 File: screenshot/transfer to package 1.png Graphic file (type png)
 <use screenshot/transfer to package 1.png>
 Package pdftex.def Info: screenshot/transfer to package 1.png  used on input li
-ne 536.
+ne 538.
 (pdftex.def)             Requested size: 234.87714pt x 262.65607pt.
 [17] [18 <./screenshot/app folder.PNG> <./screenshot/transfer to package 1.PNG>
 ] [19] [20] (./5543-report.aux)
@@ -771,7 +771,7 @@ Package rerunfilecheck Info: File `5543-report.out' has not changed.
 Here is how much of TeX's memory you used:
  11166 strings out of 480539
  167766 string characters out of 5901136
- 472571 words of memory out of 5000000
+ 471571 words of memory out of 5000000
  28474 multiletter control sequences out of 15000+600000
  454298 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -787,7 +787,7 @@ e1/public/lm/lmr12.pfb><c:/Users/cuiyh/AppData/Roaming/TinyTeX/texmf-dist/fonts
 onts/type1/public/lm/lmri10.pfb><c:/Users/cuiyh/AppData/Roaming/TinyTeX/texmf-d
 ist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/cuiyh/AppData/Roaming/TinyTeX/te
 xmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on 5543-report.pdf (20 pages, 2290621 bytes).
+Output written on 5543-report.pdf (20 pages, 2290746 bytes).
 PDF statistics:
  388 PDF objects out of 1000 (max. 8388607)
  315 compressed objects within 4 object streams

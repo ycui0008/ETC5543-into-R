@@ -39,19 +39,22 @@ For anyone who wants to learn programming languages, not only R, the two most im
 
 # Design of the shiny app and how to use it
 
-`r ET("An opening paragraph to explain what is coming up is generally helpful to the reader.")`
+In this section, the report will discuss why gamifying the questions in the shiny app and why choosing shiny app. Then, the report will discuss the design of each section in the shiny app and introduce how to use the shiny app.
 
 ## Gamification {#Gamification}
-
-`r ET("What is the main idea of this paragraph? The last sentence should help you answer this question generally.")`
 
 The `ggplotIntro` should be interesting and help new learners cultivate interests in R. Interest was recognised as an independent factor and the desired outcome in the process of learning [@schiefele1991interest]. @lepper1988motivational proposed four general ways to increase intrinsic motivation -- behavior undertaken for its own sake, for the enjoyment it provides, the learning it permits, or the feelings of accomplishment it evokes. Two out of four could be satisfied through gamification -- promoting students' sense of control and providing challenging activities. In the shiny app, `shinyAce` [@shinyAce] editor provide a similar environment as RStudio, and the difficulty levels are increasing across sections.
 
 So, before developing the shiny app, first thing was to study how to make learning progress interesting. Educational games have been successfully used to teach many school subjects [@corbett2001cognitive]. When a person receives positive feedback from learning/gaming, he/she is likely to be motivated and wants to learn/play more. The game versions of the scoreboard were much more enjoyable the normal version, and were more acceptable [@flatla2011calibration] So, the project must have a score system. A pop-up window will send a congratulatory message when the user gives correct answer or send a message containing comforting words and tips on solving questions. @harrington2005s studied the reflection of students when they experienced difficulties concluded that some students were likely to be highly task motivated, having capabilities to challenge a very competitive course. These students might be expected to have considerably better tolerance of discomfort but greater fears of failure; fear of failure may lead to increased anxiety and then to problems with tolerating these emotions [@harrington2005s]. So, necessary comforting messages is needed. A pop-up window is also the feedback when learners submit their answers, and the aim of pop-up windows is to make people feel more ownership and purpose when engaging with tasks [@pavlus2010game]. Furthermore, the pop-up windows can fortify the feelings of interactivity because two-way communication was one factor of increasing interactivity [\@cheng2014roles] and pop-up windows is one type of two-way communication.
 
+In conclusion, the gamification can motivate new learners, increase the feelings of ownership and interactivity, and decrease the anxiety of learning. 
+
+
 ## Why choosing shiny app
 
 At first, the plan was to build a package like `learnr` -- use `shiny_prerendered` Rmd file to make exercises. The advantage of this plan is a good example and template already existed. The developer can do the project by following the template. But the shiny app was more preferable because the project was expected to be more interactive and more like games. Gamification is very important in the project because it is more likely that new learners that make plots through R are interesting, funny, and easy (Section \@ref(Gamification)). If this project just asks people to do exercises, in a conventional way, the project will be just like most online tutorials.
+
+In conclusion, the shiny app is more interactive and more like games. So, it makes the gamification more manageable.
 
 ## Why designing in this way
 
