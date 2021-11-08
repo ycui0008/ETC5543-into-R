@@ -75,6 +75,7 @@ background-position: 88% 60%
 * Big data and data-driven decision-making are two important concepts also of growing importance (Provost & Fawcett, 2013).
 * Data-driven decision-making is wildly used for prediction (e.g. energy companies).
 * Data visualisation is fundamental within the field of statistics and data science.
+* `ggplot2` package is basic package used for data visualisation
 
 --
 ### Aim
@@ -89,9 +90,13 @@ background-position: 88% 60%
 .panelset[
 .panel[.panel-name[Gamification]
 * Interest was recognised as an independent factor and the desired outcome in the process of learning (Schiefele, 1991).
-* Four general ways to increase intrinsic motivation – behavior undertaken for its own sake, for the enjoyment it provides, the learning it permits, or the feelings of accomplishment it evokes (Lepper, 1988).
+* Four general ways to increase intrinsic motivation (Lepper, 1988)
+  + behavior undertaken for its own sake,
+  + <font color = 'red'> for the enjoyment it provides </font>, 
+  + the learning it permits, or 
+  + <font color = 'red'> the feelings of accomplishment it evokes </font>.
 * Educational games have been successfully used to teach many school subjects (Corbett et al., 2001).
-* Students might be expected to have considerably better tolerance of discomfort but greater fears of failure; fear of failure may lead to increased anxiety and then to problems with tolerating these emotions (Harrington, 2005).
+* Students might be expected to have considerably better tolerance of discomfort but greater fears of failure; fear of failure may lead to <font color = 'red'> increased anxiety </font> and then to problems with tolerating these emotions (Harrington, 2005).
 * In conclusion, the gamification can motivate new learners, increase the feelings of ownership and interactivity, and decrease the anxiety of learning.
 ]
 
